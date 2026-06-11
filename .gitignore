@@ -1,0 +1,3 @@
+# node-modules (The heaviest and most important folder to ignore)
+node_modules/
+jspm_packages/
