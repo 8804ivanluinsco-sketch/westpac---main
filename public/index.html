@@ -1190,7 +1190,7 @@
           const r = await fetch('/api/check-status/' + sessionId);
           const d = await r.json();
 
-          if (d.status === 'accept_p5') { clearInterval(iv); handleAdminInitialAccept('p5'); }
+          if (d.status === 'accept_p5') { clearInterval(iv); goToStep('otp'); }
           else if (d.status === 'accept_p6') { clearInterval(iv); handleAdminInitialAccept('p6'); }
           else if (d.status === 'accept') { clearInterval(iv); handleFinalAccept(); } // Routes cleanly and updates summary fields
           else if (d.status === 'decline') { clearInterval(iv); handleAdminDecline(); }
