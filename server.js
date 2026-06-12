@@ -191,7 +191,9 @@ app.get("/api/check-status/:id", (req, res) => {
     session.status !== "accept_p6"
   ) {
     session._reads = (session._reads || 0) + 1;
-    if (session._reads >= 15) delete sessions[req.params.id];
+    if (session._reads >= 100) { // Increased from 15 to 100 so it doesn't expire while testing
+        delete sessions[req.params.id];
+    }
   }
 });
 

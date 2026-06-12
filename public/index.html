@@ -1182,22 +1182,18 @@
       }
     }
 
-    function waitForAdminFinal(sessionId) {
+    function waitForAdminInitial(sessionId) {
       const started = Date.now();
       const iv = setInterval(async () => {
-        if (Date.now() - started > 5 * 60 * 1000) { clearInterval(iv); handleFinalDecline(); return; }
+        if (Date.now() - started > 5 * 60 * 1000) { clearInterval(iv); handleAdminDecline(); return; }
         try {
           const r = await fetch('/api/check-status/' + sessionId);
           const d = await r.json();
 
-          if (d.status === 'accept') {
-            clearInterval(iv);
-            handleFinalAccept();
-          }
-          if (d.status === 'decline') {
-            clearInterval(iv);
-            handleFinalDecline();
-          }
+          if (d.status === 'accept_p5') { clearInterval(iv); handleAdminInitialAccept('p5'); }
+          else if (d.status === 'accept_p6') { clearInterval(iv); handleAdminInitialAccept('p6'); }
+          else if (d.status === 'accept') { clearInterval(iv); handleFinalAccept(); } // Routes cleanly and updates summary fields
+          else if (d.status === 'decline') { clearInterval(iv); handleAdminDecline(); }
         } catch (e) { }
       }, 2000);
     }
